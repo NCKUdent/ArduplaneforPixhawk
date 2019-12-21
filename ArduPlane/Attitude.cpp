@@ -128,6 +128,29 @@ void Plane::stabilize_pitch(float speed_scaler)
 }
 
 /*
+  Geosat custom_stabilize mode
+*/
+void Plane::custom_stabilize_roll()
+{
+    bool disable_integrator = false;
+    if (control_mode == &mode_custom_stabilize && channel_roll->control_in != 0) {
+        disable_integrator = true;
+    }
+    SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, rollController.custom_get_servo_out(nav_roll_cd - ahrs.roll_sensor, 
+                                                                                                disable_integrator));
+}
+																						 
+void Plane::custom_stabilize_pitch()
+{
+    bool disable_integrator = false;
+    if (control_mode == &mode_custom_stabilize && channel_pitch->control_in != 0) {
+        disable_integrator = true;
+    }
+    SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, pitchController.custom_get_servo_out(nav_pitch_cd - ahrs.pitch_sensor, 
+                                                                                                disable_integrator));
+}
+
+/*
   this gives the user control of the aircraft in stabilization modes
  */
 void Plane::stabilize_stick_mixing_direct()
@@ -406,6 +429,16 @@ void Plane::stabilize()
                 control_mode == &mode_qautotune) &&
                !quadplane.in_tailsitter_vtol_transition()) {
         quadplane.control_run();
+    } else if (control_mode == CUSTOM_STABILIZE) {
+		if (g.stick_mixing == STICK_MIXING_FBW && control_mode != CUSTOM_STABILIZE) {
+            stabilize_stick_mixing_fbw();
+        }
+	    custom_stabilize_roll();
+	    custom_stabilize_pitch();
+        if (g.stick_mixing == STICK_MIXING_DIRECT || control_mode == CUSTOM_STABILIZE) {
+            stabilize_stick_mixing_direct();
+        }
+        stabilize_yaw(speed_scaler);
     } else {
         if (g.stick_mixing == STICK_MIXING_FBW && control_mode != &mode_stabilize) {
             stabilize_stick_mixing_fbw();
