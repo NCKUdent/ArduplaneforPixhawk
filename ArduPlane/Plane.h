@@ -960,6 +960,7 @@ private:
     float get_speed_scaler(void);
     bool stick_mixing_enabled(void);
     void stabilize_roll(float speed_scaler);
+	void custom_stabilize_roll();
     void stabilize_pitch(float speed_scaler);
     void stabilize_stick_mixing_direct();
     void stabilize_stick_mixing_fbw();
