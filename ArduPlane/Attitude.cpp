@@ -429,7 +429,7 @@ void Plane::stabilize()
                 control_mode == &mode_qautotune) &&
                !quadplane.in_tailsitter_vtol_transition()) {
         quadplane.control_run();
-    } else if (control_mode == &mode_custom_training){
+    } else if (control_mode == &mode_custom_stabilize){
         if (g.stick_mixing == STICK_MIXING_FBW && control_mode != &mode_custom_stabilize) {
             stabilize_stick_mixing_fbw();
         }
