@@ -10,6 +10,7 @@ void Plane::failsafe_short_on_event(enum failsafe_state fstype, ModeReason reaso
     {
     case Mode::Number::MANUAL:
     case Mode::Number::STABILIZE:
+	case Mode::Number::CUSTOM_STABILIZE:
     case Mode::Number::ACRO:
     case Mode::Number::FLY_BY_WIRE_A:
     case Mode::Number::AUTOTUNE:
@@ -61,8 +62,7 @@ void Plane::failsafe_short_on_event(enum failsafe_state fstype, ModeReason reaso
     case Mode::Number::QRTL:
     case Mode::Number::INITIALISING:
         break;
-	case Mode::Number::CUSTOM_STABILIZE:
-    }
+	}
     gcs().send_text(MAV_SEVERITY_INFO, "Flight mode = %u", (unsigned)control_mode->mode_number());
 }
 
