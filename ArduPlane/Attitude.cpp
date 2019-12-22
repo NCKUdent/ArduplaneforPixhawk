@@ -434,10 +434,10 @@ void Plane::stabilize()
             stabilize_stick_mixing_fbw();
         }
         custom_stabilize_roll();
-        stabilize_pitch();
         if (g.stick_mixing == STICK_MIXING_DIRECT || control_mode == &mode_custom_stabilize) {
             stabilize_stick_mixing_direct();
         }
+		stabilize_pitch(speed_scaler);
         stabilize_yaw(speed_scaler);
     } else {
         if (g.stick_mixing == STICK_MIXING_FBW && control_mode != &mode_stabilize) {
