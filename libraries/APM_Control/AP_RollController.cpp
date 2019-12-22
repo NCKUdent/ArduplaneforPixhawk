@@ -216,3 +216,69 @@ void AP_RollController::reset_I()
 {
 	_pid_info.I = 0;
 }
+
+
+/*
+  Customized for Geosat Roll Verification (Roll Rate Controller Outer Loop)
+*/
+int32_t AP_RollController::_custom_get_rate_out(float desired_rate, bool disable_integrator)
+{
+	uint32_t tnow = AP_HAL::millis();
+	uint32_t dt = tnow - _last_t;
+	if (_last_t == 0 || dt > 1000) {
+		dt = 0;
+	}
+	_last_t = tnow;
+	
+	float inner_P = 0.07571086;
+	float inner_I = 0.99674439;
+	float inner_D = 0.00143771;
+	float delta_time = (float)dt * 0.001f;
+	
+    // Get body rate vector (radians/sec)
+	float omega_x = _ahrs.get_gyro().x;
+	
+	// Calculate the roll rate error (radians/sec)
+	float rate_error = (desired_rate - omega_x);
+
+	// Scaler is applied before integrator so that integrator state relates directly to aileron deflection
+	// This means aileron trim offset doesn't change as the value of scaler changes with airspeed
+	// Don't integrate if in stabilise mode as the integrator will wind up against the pilots inputs
+	
+		//only integrate if time step are positive
+    if (!disable_integrator) {
+		if (dt > 0) {
+		    roll_I_integrator += rate_error * delta_time;
+			roll_D_derivative = (rate_error - rate_error_prior) / delta_time;
+			rate_error_prior = rate_error;
+		} else {
+		//roll_I_integrator = 0;
+		rate_error_prior = 0;
+	    }
+	} else {
+		roll_I_integrator = 0;
+	}
+	
+	// Calculate the demanded control surface deflection
+	// Note the scaler is applied again. We want a 1/speed scaler applied to the feed-forward
+	// path, but want a 1/speed^2 scaler applied to the rate error path. 
+	// This is because acceleration scales with speed^2, but rate scales with speed.
+	_last_out = (rate_error * inner_P) + (roll_I_integrator * inner_I) + (roll_D_derivative * inner_D);
+	_last_out_deg = ToDeg(_last_out);
+	
+	// Convert to centi-degrees and constrain, beware for physical system constraints
+	return constrain_float(_last_out_deg * 100, -1300, 1300);
+}
+
+/*
+  Customized for Geosat Roll Verification (Roll Rate Controller Inner Loop)
+*/
+int32_t AP_RollController::custom_get_servo_out(int32_t angle_err, bool disable_integrator)
+{
+	// Calculate the desired roll rate (radians/sec) from the angle error
+	float outter_P = 1;
+	float angle_err_rad = ToRad((angle_err)/100);
+	float desired_rate = angle_err_rad * outter_P;
+
+    return _custom_get_rate_out(desired_rate, disable_integrator);
+}

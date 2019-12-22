@@ -23,6 +23,8 @@ public:
 
 	int32_t get_rate_out(float desired_rate, float scaler);
 	int32_t get_servo_out(int32_t angle_err, float scaler, bool disable_integrator);
+	int32_t custom_get_servo_out(int32_t angle_err, bool disable_integrator);
+
 
 	void reset_I();
 
@@ -59,10 +61,18 @@ private:
     AP_AutoTune autotune;
 	uint32_t _last_t;
 	float _last_out;
+	float _last_out_deg;
+
+	float _integrator;
+	float roll_I_integrator;
+	float roll_D_derivative;
+	float rate_error_prior;
 
     AP_Logger::PID_Info _pid_info;
 
 	int32_t _get_rate_out(float desired_rate, float scaler, bool disable_integrator);
+	int32_t _custom_get_rate_out(float desired_rate, bool disable_integrator);
+
 
 	AP_AHRS &_ahrs;
 
