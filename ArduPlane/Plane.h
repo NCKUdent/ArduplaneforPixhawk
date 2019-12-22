@@ -136,6 +136,7 @@ public:
     friend class Mode;
     friend class ModeCircle;
     friend class ModeStabilize;
+	friend class ModeCustomStabilize;
     friend class ModeTraining;
     friend class ModeAcro;
     friend class ModeFBWA;
