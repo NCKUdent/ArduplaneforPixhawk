@@ -50,6 +50,7 @@ void GCS_Plane::update_vehicle_sensor_status_flags(void)
         break;
 
     case Mode::Number::STABILIZE:
+	case Mode::Number::CUSTOM_STABILIZE:
     case Mode::Number::FLY_BY_WIRE_A:
     case Mode::Number::AUTOTUNE:
     case Mode::Number::QSTABILIZE:
@@ -89,7 +90,6 @@ void GCS_Plane::update_vehicle_sensor_status_flags(void)
         break;
     case Mode::Number::INITIALISING:
         break;
-	case Mode::Number::CUSTOM_STABILIZE:
     }
 
     if (rate_controlled) {
