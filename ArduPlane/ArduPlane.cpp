@@ -526,7 +526,7 @@ void Plane::update_navigation()
     case Mode::Number::QRTL:
     case Mode::Number::QAUTOTUNE:
     case Mode::Number::QACRO:
-    case Mode::Number::CUSTOM_STABILIZE:
+	case Mode::Number::CUSTOM_STABILIZE:
         // nothing to do
         break;
     }
