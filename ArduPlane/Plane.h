@@ -590,10 +590,10 @@ private:
     // Navigation control variables
     // The instantaneous desired bank angle.  Hundredths of a degree
     int32_t nav_roll_cd;
-
+    int32_t custom_nav_roll_cd;
     // The instantaneous desired pitch angle.  Hundredths of a degree
     int32_t nav_pitch_cd;
-
+    int32_t custom_nav_pitch_cd;
     // the aerodymamic load factor. This is calculated from the demanded
     // roll before the roll is clipped, using 1/sqrt(cos(nav_roll))
     float aerodynamic_load_factor = 1.0f;
