@@ -27,6 +27,7 @@ MAV_MODE GCS_MAVLINK_Plane::base_mode() const
         _base_mode = MAV_MODE_FLAG_MANUAL_INPUT_ENABLED;
         break;
     case Mode::Number::STABILIZE:
+	case Mode::Number::CUSTOM_STABILIZE:
     case Mode::Number::FLY_BY_WIRE_A:
     case Mode::Number::AUTOTUNE:
     case Mode::Number::FLY_BY_WIRE_B:
@@ -54,7 +55,6 @@ MAV_MODE GCS_MAVLINK_Plane::base_mode() const
         break;
     case Mode::Number::INITIALISING:
         break;
-	case Mode::Number::CUSTOM_STABILIZE:
     }
 
     if (!plane.training_manual_pitch || !plane.training_manual_roll) {
