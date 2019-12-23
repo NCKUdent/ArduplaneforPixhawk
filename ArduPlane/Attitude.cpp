@@ -127,7 +127,7 @@ void Plane::custom_stabilize_pitch()
                                                                                                   disable_integrator));
 }
 
-void Plane::track_attitude()
+void Plane::track_roll_attitude()
 {
 	bool disable_integrator = false;
     if (control_mode == &mode_track_attitude && channel_roll->get_control_in() != 0) {
@@ -450,7 +450,15 @@ void Plane::stabilize()
                !quadplane.in_tailsitter_vtol_transition()) {
         quadplane.control_run();
     } else if (control_mode == &mode_track_attitude) {
-		track_attitude();
+		if (g.stick_mixing == STICK_MIXING_FBW && control_mode != &mode_track_attitude) {
+            stabilize_stick_mixing_fbw();
+        }
+		track_roll_attitude();
+		stabilize_pitch(speed_scaler);
+        if (g.stick_mixing == STICK_MIXING_DIRECT || control_mode == &mode_track_attitude) {
+            stabilize_stick_mixing_direct();
+        }
+        stabilize_yaw(speed_scaler);
 	} else if (control_mode == &mode_custom_stabilize){
 		count = 0;
         if (g.stick_mixing == STICK_MIXING_FBW && control_mode != &mode_custom_stabilize) {
