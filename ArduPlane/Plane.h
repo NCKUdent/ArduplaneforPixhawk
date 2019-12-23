@@ -264,7 +264,7 @@ private:
     ModeCircle mode_circle;
     ModeStabilize mode_stabilize;
 	ModeCustomStabilize mode_custom_stabilize;
-	Mode TrackAttitude mode_track_attitude;
+	ModeTrackAttitude mode_track_attitude;
     ModeTraining mode_training;
     ModeAcro mode_acro;
     ModeFBWA mode_fbwa;
