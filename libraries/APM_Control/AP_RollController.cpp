@@ -270,10 +270,10 @@ int32_t AP_RollController::_custom_get_rate_out(float desired_rate, bool disable
 	// path, but want a 1/speed^2 scaler applied to the rate error path. 
 	// This is because acceleration scales with speed^2, but rate scales with speed.
 	_custom_last_out = (rate_error * inner_P) + (custom_roll_I_integrator * inner_I) + (custom_roll_D_derivative * inner_D);
-	_custom_last_out_deg = ToDeg(_track_last_out);
+	_custom_last_out_deg = ToDeg(_custom_last_out);
 	
 	// Convert to centi-degrees and constrain, beware for physical system constraints
-	return constrain_float(_track_last_out_deg * 375, -3750, 3750);
+	return constrain_float(_custom_last_out_deg * 375, -3750, 3750);
 }
 
 /*
