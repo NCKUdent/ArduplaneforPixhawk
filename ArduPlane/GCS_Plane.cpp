@@ -51,6 +51,7 @@ void GCS_Plane::update_vehicle_sensor_status_flags(void)
 
     case Mode::Number::STABILIZE:
 	case Mode::Number::CUSTOM_STABILIZE:
+	case Mode::Number::TRACK_ATTITUDE:
     case Mode::Number::FLY_BY_WIRE_A:
     case Mode::Number::AUTOTUNE:
     case Mode::Number::QSTABILIZE:
