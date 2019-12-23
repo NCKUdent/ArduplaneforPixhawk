@@ -267,7 +267,7 @@ int32_t AP_RollController::_custom_get_rate_out(float desired_rate, bool disable
 	_last_out_deg = ToDeg(_last_out);
 	
 	// Convert to centi-degrees and constrain, beware for physical system constraints
-	return constrain_float(_last_out_deg * 100, -1000, 1000);
+	return constrain_float(_last_out_deg * 375, -3750, 3750);
 }
 
 /*
@@ -277,7 +277,7 @@ int32_t AP_RollController::custom_get_servo_out(int32_t angle_err, bool disable_
 {
 	// Calculate the desired roll rate (radians/sec) from the angle error
 	float outter_P = 1;
-	float angle_err_rad = ToRad((angle_err)/100);
+	float angle_err_rad = ToRad((angle_err)/375);
 	float desired_rate = angle_err_rad * outter_P;
 
     return _custom_get_rate_out(desired_rate, disable_integrator);
