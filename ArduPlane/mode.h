@@ -39,6 +39,7 @@ public:
         QAUTOTUNE     = 22,
         QACRO         = 23,
 		CUSTOM_STABILIZE = 24,
+		TRACK_ATTITUDE = 25,
     };
 
     // Constructor
@@ -235,6 +236,22 @@ public:
     Number mode_number() const override { return Number::CUSTOM_STABILIZE; }
     const char *name() const override { return "CUSTOM_STABILIZE"; }
     const char *name4() const override { return "CUST_STAB"; }
+
+    // methods that affect movement of the vehicle in this mode
+    void update() override;
+
+protected:
+
+    bool _enter() override;
+};
+
+class ModeTrackAttitude : public Mode
+{
+public:
+
+    Number mode_number() const override { return Number::TRACK_ATTITUDE; }
+    const char *name() const override { return "TRACK_ATTITUDE"; }
+    const char *name4() const override { return "TRK_ATT"; }
 
     // methods that affect movement of the vehicle in this mode
     void update() override;

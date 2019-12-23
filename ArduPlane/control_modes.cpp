@@ -76,6 +76,9 @@ Mode *Plane::mode_from_mode_num(const enum Mode::Number num)
 	case Mode::Number::CUSTOM_STABILIZE:
         ret = &mode_custom_stabilize;
         break;
+	case Mode::Number::TRACK_ATTITUDE:
+        ret = &mode_track_attitude;
+        break;
     }
     return ret;
 }

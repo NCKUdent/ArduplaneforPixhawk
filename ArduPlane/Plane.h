@@ -137,6 +137,7 @@ public:
     friend class ModeCircle;
     friend class ModeStabilize;
 	friend class ModeCustomStabilize;
+	friend class ModeTrackAttitude;
     friend class ModeTraining;
     friend class ModeAcro;
     friend class ModeFBWA;
@@ -263,6 +264,7 @@ private:
     ModeCircle mode_circle;
     ModeStabilize mode_stabilize;
 	ModeCustomStabilize mode_custom_stabilize;
+	Mode TrackAttitude mode_track_attitude;
     ModeTraining mode_training;
     ModeAcro mode_acro;
     ModeFBWA mode_fbwa;
@@ -592,6 +594,8 @@ private:
     // The instantaneous desired bank angle.  Hundredths of a degree
     int32_t nav_roll_cd;
     int32_t custom_nav_roll_cd;
+	int32_t track_nav_roll_cd;
+	int32_t track_origin_nav_roll_cd;
     // The instantaneous desired pitch angle.  Hundredths of a degree
     int32_t nav_pitch_cd;
     int32_t custom_nav_pitch_cd;
@@ -964,6 +968,7 @@ private:
     void stabilize_roll(float speed_scaler);
 	void custom_stabilize_roll();
 	void custom_stabilize_pitch();
+	void track_attitude_roll();
     void stabilize_pitch(float speed_scaler);
     void stabilize_stick_mixing_direct();
     void stabilize_stick_mixing_fbw();

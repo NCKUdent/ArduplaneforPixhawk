@@ -125,6 +125,22 @@ void Plane::custom_stabilize_pitch()
                                                                                                   disable_integrator));
 }
 
+void Plane::track_attitude()
+{
+	bool disable_integrator = false;
+    if (control_mode == &mode_track_attitude && channel_roll->get_control_in() != 0) {
+        disable_integrator = true;
+    }
+	if (count<100) {
+	SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, rollController.custom_get_servo_out(track_origin_nav_roll_cd - ahrs.roll_sensor,  
+                                                                                                disable_integrator));
+	} else {
+	SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, rollController.custom_get_servo_out(track_nav_roll_cd - ahrs.roll_sensor,  
+                                                                                                disable_integrator));
+	}
+}
+
+
 
 /*
   this is the main pitch stabilization function. It takes the
@@ -385,10 +401,12 @@ void Plane::stabilize_acro(float speed_scaler)
  */
 void Plane::stabilize()
 {
+	count = count+1;
     if (control_mode == &mode_manual) {
         // reset steering controls
         steer_state.locked_course = false;
         steer_state.locked_course_err = 0;
+		count = 0;
         return;
     }
     float speed_scaler = get_speed_scaler();
@@ -429,7 +447,10 @@ void Plane::stabilize()
                 control_mode == &mode_qautotune) &&
                !quadplane.in_tailsitter_vtol_transition()) {
         quadplane.control_run();
-    } else if (control_mode == &mode_custom_stabilize){
+    } else if (control_mode == &mode_track_attitude) {
+		track_attitude();
+	} else if (control_mode == &mode_custom_stabilize){
+		count = 0;
         if (g.stick_mixing == STICK_MIXING_FBW && control_mode != &mode_custom_stabilize) {
             stabilize_stick_mixing_fbw();
         }
@@ -440,6 +461,7 @@ void Plane::stabilize()
         }
         stabilize_yaw(speed_scaler);
     } else {
+		count = 0;
         if (g.stick_mixing == STICK_MIXING_FBW && control_mode != &mode_stabilize) {
             stabilize_stick_mixing_fbw();
         }

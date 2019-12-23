@@ -527,6 +527,7 @@ void Plane::update_navigation()
     case Mode::Number::QAUTOTUNE:
     case Mode::Number::QACRO:
 	case Mode::Number::CUSTOM_STABILIZE:
+	case Mode::Number::TRACK_ATTITUDE:
         // nothing to do
         break;
     }
