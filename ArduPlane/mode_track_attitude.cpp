@@ -13,5 +13,5 @@ bool ModeCustomStabilize::_enter()
 void ModeCustomStabilize::update()
 {
 	plane.track_nav_roll_cd = 3750;
-	plane.track_nav_origin_roll_cd = 0;
+	plane.track_origin_nav_roll_cd = 0;
 }
