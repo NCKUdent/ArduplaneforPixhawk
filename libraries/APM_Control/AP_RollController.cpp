@@ -233,7 +233,7 @@ int32_t AP_RollController::_custom_get_rate_out(float desired_rate, bool disable
 	float inner_P = 0.07571086;
 	float inner_I = 0.99674439;
 	float inner_D = 0.00143771;
-	float delta_time = (float)dt * 0.001f;
+	float delta_time = (float)dt * 0.001f * 40;
 	
     // Get body rate vector (radians/sec)
 	float omega_x = _ahrs.get_gyro().x;
@@ -267,7 +267,7 @@ int32_t AP_RollController::_custom_get_rate_out(float desired_rate, bool disable
 	_last_out_deg = ToDeg(_last_out);
 	
 	// Convert to centi-degrees and constrain, beware for physical system constraints
-	return constrain_float(_last_out_deg * 100, -1300, 1300);
+	return constrain_float(_last_out_deg * 100, -4500, 4500);
 }
 
 /*
