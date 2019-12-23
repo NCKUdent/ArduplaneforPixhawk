@@ -113,7 +113,7 @@ void Plane::custom_stabilize_roll()
         disable_integrator = true;
     }
     SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, rollController.custom_get_servo_out(custom_nav_roll_cd - ahrs.roll_sensor,  
-                                                                                         disable_integrator));
+                                                                                                disable_integrator));
 }
 void Plane::custom_stabilize_pitch()
 {
@@ -122,7 +122,7 @@ void Plane::custom_stabilize_pitch()
         disable_integrator = true;
     }
     SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, pitchController.custom_get_servo_out(custom_nav_pitch_cd - ahrs.pitch_sensor,  
-                                                                                           disable_integrator));
+                                                                                                  disable_integrator));
 }
 
 
@@ -434,10 +434,10 @@ void Plane::stabilize()
             stabilize_stick_mixing_fbw();
         }
         custom_stabilize_roll();
+		stabilize_pitch(speed_scaler);
         if (g.stick_mixing == STICK_MIXING_DIRECT || control_mode == &mode_custom_stabilize) {
             stabilize_stick_mixing_direct();
         }
-		stabilize_pitch(speed_scaler);
         stabilize_yaw(speed_scaler);
     } else {
         if (g.stick_mixing == STICK_MIXING_FBW && control_mode != &mode_stabilize) {
