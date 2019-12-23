@@ -24,6 +24,7 @@ public:
 	int32_t get_rate_out(float desired_rate, float scaler);
 	int32_t get_servo_out(int32_t angle_err, float scaler, bool disable_integrator);
 	int32_t custom_get_servo_out(int32_t angle_err, bool disable_integrator);
+	int32_t track_get_servo_out(int32_t angle_err, bool disable_integrator);
 
 
 	void reset_I();
@@ -59,19 +60,36 @@ private:
     const AP_Vehicle::FixedWing &aparm;
     AP_AutoTune::ATGains gains;
     AP_AutoTune autotune;
+	
 	uint32_t _last_t;
 	float _last_out;
 	float _last_out_deg;
-
 	float _integrator;
 	float roll_I_integrator;
 	float roll_D_derivative;
 	float rate_error_prior;
+	
+	uint32_t _custom_last_t;
+	float _custom_last_out;
+	float _custom_last_out_deg;
+	float _custom_integrator;
+	float custom_roll_I_integrator;
+	float custom_roll_D_derivative;
+	float custom_rate_error_prior;
+	
+	uint32_t _track_last_t;
+	float _track_last_out;
+	float _track_last_out_deg;
+	float _track_integrator;
+	float track_roll_I_integrator;
+	float track_roll_D_derivative;
+	float track_rate_error_prior;
 
     AP_Logger::PID_Info _pid_info;
 
 	int32_t _get_rate_out(float desired_rate, float scaler, bool disable_integrator);
 	int32_t _custom_get_rate_out(float desired_rate, bool disable_integrator);
+	int32_t _track_get_rate_out(float desired_rate, bool disable_integrator);
 
 
 	AP_AHRS &_ahrs;

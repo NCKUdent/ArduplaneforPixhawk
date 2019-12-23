@@ -224,11 +224,11 @@ void AP_RollController::reset_I()
 int32_t AP_RollController::_custom_get_rate_out(float desired_rate, bool disable_integrator)
 {
 	uint32_t tnow = AP_HAL::millis();
-	uint32_t dt = tnow - _last_t;
-	if (_last_t == 0 || dt > 1000) {
+	uint32_t dt = tnow - _custom_last_t;
+	if (_custom_last_t == 0 || dt > 1000) {
 		dt = 0;
 	}
-	_last_t = tnow;
+	_custom_last_t = tnow;
 	
 	float inner_P = 0.0757108607;
 	float inner_I = 0.9967443892;
@@ -248,26 +248,32 @@ int32_t AP_RollController::_custom_get_rate_out(float desired_rate, bool disable
 		//only integrate if time step are positive
     if (!disable_integrator) {
 		if (dt > 0) {
-		    roll_I_integrator += rate_error * delta_time;
-			roll_D_derivative = (rate_error - rate_error_prior) / delta_time;
-			rate_error_prior = rate_error;
+			if (_custom_last_out_deg < -30) {
+                custom_roll_I_integrator = MAX(custom_roll_I_integrator , 0);
+            } else if (_custom_last_out_deg > 30) {
+                // prevent the integrator from decreasing if surface defln demand  is below the lower limit
+                 custom_roll_I_integrator = MIN(custom_roll_I_integrator, 0);
+            }
+		    custom_roll_I_integrator += rate_error * delta_time;
+			custom_roll_D_derivative = (rate_error - custom_rate_error_prior) / delta_time;
+			custom_rate_error_prior = rate_error;
 		} else {
 		//roll_I_integrator = 0;
-		rate_error_prior = 0;
+		custom_rate_error_prior = 0;
 	    }
 	} else {
-		roll_I_integrator = 0;
+		custom_roll_I_integrator = 0;
 	}
 	
 	// Calculate the demanded control surface deflection
 	// Note the scaler is applied again. We want a 1/speed scaler applied to the feed-forward
 	// path, but want a 1/speed^2 scaler applied to the rate error path. 
 	// This is because acceleration scales with speed^2, but rate scales with speed.
-	_last_out = (rate_error * inner_P) + (roll_I_integrator * inner_I) + (roll_D_derivative * inner_D);
-	_last_out_deg = ToDeg(_last_out);
+	_custom_last_out = (rate_error * inner_P) + (custom_roll_I_integrator * inner_I) + (custom_roll_D_derivative * inner_D);
+	_custom_last_out_deg = ToDeg(_track_last_out);
 	
 	// Convert to centi-degrees and constrain, beware for physical system constraints
-	return constrain_float(_last_out_deg * 375, -3750, 3750);
+	return constrain_float(_track_last_out_deg * 375, -3750, 3750);
 }
 
 /*
@@ -281,4 +287,75 @@ int32_t AP_RollController::custom_get_servo_out(int32_t angle_err, bool disable_
 	float desired_rate = angle_err_rad * outter_P;
 
     return _custom_get_rate_out(desired_rate, disable_integrator);
+}
+
+/*
+  Customized for Geosat Roll Verification (Roll Rate Controller Outer Loop)
+*/
+int32_t AP_RollController::_track_get_rate_out(float desired_rate, bool disable_integrator)
+{
+	uint32_t tnow = AP_HAL::millis();
+	uint32_t dt = tnow - _track_last_t;
+	if (_track_last_t == 0 || dt > 1000) {
+		dt = 0;
+	}
+	_track_last_t = tnow;
+	
+	float inner_P = 0.0757108607;
+	float inner_I = 0.9967443892;
+	float inner_D = 0.0014377142;
+	float delta_time = (float)dt * 0.001f;
+	
+    // Get body rate vector (radians/sec)
+	float omega_x = _ahrs.get_gyro().x;
+	
+	// Calculate the roll rate error (radians/sec)
+	float rate_error = (desired_rate - omega_x);
+
+	// Scaler is applied before integrator so that integrator state relates directly to aileron deflection
+	// This means aileron trim offset doesn't change as the value of scaler changes with airspeed
+	// Don't integrate if in stabilise mode as the integrator will wind up against the pilots inputs
+	
+		//only integrate if time step are positive
+    if (!disable_integrator) {
+		if (dt > 0) {
+			if (_track_last_out_deg < -30) {
+                track_roll_I_integrator = MAX(track_roll_I_integrator , 0);
+            } else if (_track_last_out_deg > 30) {
+                // prevent the integrator from decreasing if surface defln demand  is below the lower limit
+                 track_roll_I_integrator = MIN(track_roll_I_integrator, 0);
+            }
+		    track_roll_I_integrator += rate_error * delta_time;
+			track_roll_D_derivative = (rate_error - track_rate_error_prior) / delta_time;
+			track_rate_error_prior = rate_error;
+		} else {
+		//roll_I_integrator = 0;
+		track_rate_error_prior = 0;
+	    }
+	} else {
+		track_roll_I_integrator = 0;
+	}
+	
+	// Calculate the demanded control surface deflection
+	// Note the scaler is applied again. We want a 1/speed scaler applied to the feed-forward
+	// path, but want a 1/speed^2 scaler applied to the rate error path. 
+	// This is because acceleration scales with speed^2, but rate scales with speed.
+	_track_last_out = (rate_error * inner_P) + (track_roll_I_integrator * inner_I) + (track_roll_D_derivative * inner_D);
+	_track_last_out_deg = ToDeg(_track_last_out);
+	
+	// Convert to centi-degrees and constrain, beware for physical system constraints
+	return constrain_float(_track_last_out_deg * 375, -3750, 3750);
+}
+
+/*
+  Customized for Geosat Roll Verification (Roll Rate Controller Inner Loop)
+*/
+int32_t AP_RollController::track_get_servo_out(int32_t angle_err, bool disable_integrator)
+{
+	// Calculate the desired roll rate (radians/sec) from the angle error
+	float outter_P = 1;
+	float angle_err_rad = ToRad((angle_err)/375);
+	float desired_rate = angle_err_rad * outter_P;
+
+    return _track_get_rate_out(desired_rate, disable_integrator);
 }
