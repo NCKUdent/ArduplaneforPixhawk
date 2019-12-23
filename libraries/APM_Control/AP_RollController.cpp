@@ -259,6 +259,8 @@ int32_t AP_RollController::_custom_get_rate_out(float desired_rate, bool disable
 			custom_rate_error_prior = rate_error;
 		} else {
 		//roll_I_integrator = 0;
+		custom_roll_I_integrator = 0;
+		custom_roll_D_derivative = 0;
 		custom_rate_error_prior = 0;
 	    }
 	} else {
@@ -316,6 +318,8 @@ int32_t AP_RollController::_track_get_rate_out(float desired_rate, bool disable_
 	// This means aileron trim offset doesn't change as the value of scaler changes with airspeed
 	// Don't integrate if in stabilise mode as the integrator will wind up against the pilots inputs
 	
+	
+	
 		//only integrate if time step are positive
     if (!disable_integrator) {
 		if (dt > 0) {
@@ -330,6 +334,8 @@ int32_t AP_RollController::_track_get_rate_out(float desired_rate, bool disable_
 			track_rate_error_prior = rate_error;
 		} else {
 		//roll_I_integrator = 0;
+		track_roll_I_integrator = 0;
+		track_roll_D_derivative = 0;
 		track_rate_error_prior = 0;
 	    }
 	} else {
