@@ -294,7 +294,7 @@ int32_t AP_RollController::custom_get_servo_out(int32_t angle_err, bool disable_
 /*
   Customized for Geosat Roll Verification (Roll Rate Controller Outer Loop)
 */
-int32_t AP_RollController::_track_get_rate_out(float desired_rate, bool disable_integrator)
+int32_t AP_RollController::_track_get_rate_out(float desired_rate, bool disable_integrator, int count)
 {
 	uint32_t tnow = AP_HAL::millis();
 	uint32_t dt = tnow - _track_last_t;
@@ -321,7 +321,7 @@ int32_t AP_RollController::_track_get_rate_out(float desired_rate, bool disable_
 	
 	
 		//only integrate if time step are positive
-    if (!disable_integrator) {
+    if (!disable_integrator || count=100 || count=400 ||count=700 ) {
 		if (dt > 0) {
 			if (_track_last_out_deg < -30) {
                 track_roll_I_integrator = MAX(track_roll_I_integrator , 0);
@@ -356,12 +356,12 @@ int32_t AP_RollController::_track_get_rate_out(float desired_rate, bool disable_
 /*
   Customized for Geosat Roll Verification (Roll Rate Controller Inner Loop)
 */
-int32_t AP_RollController::track_get_servo_out(int32_t angle_err, bool disable_integrator)
+int32_t AP_RollController::track_get_servo_out(int32_t angle_err, bool disable_integrator, int count)
 {
 	// Calculate the desired roll rate (radians/sec) from the angle error
 	float outter_P = 1;
 	float angle_err_rad = ToRad((angle_err)/375);
 	float desired_rate = angle_err_rad * outter_P;
 
-    return _track_get_rate_out(desired_rate, disable_integrator);
+    return _track_get_rate_out(desired_rate, disable_integrator, int count);
 }
