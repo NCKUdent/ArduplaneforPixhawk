@@ -1,7 +1,7 @@
 #include "Plane.h"
 
 
-int count;
+
 /*
   get a speed scaling number for control surfaces. This is applied to
   PIDs to change the scaling of the PID with speed. At high speed we
