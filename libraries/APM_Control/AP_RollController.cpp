@@ -321,7 +321,7 @@ int32_t AP_RollController::_track_get_rate_out(float desired_rate, bool disable_
 	
 	
 		//only integrate if time step are positive
-    if (!disable_integrator || count==100 || count==400 ||count==700 ) {
+    if (!disable_integrator || ::count == 100 || ::count == 400 || ::count == 700 ) {
 		if (dt > 0) {
 			if (_track_last_out_deg < -30) {
                 track_roll_I_integrator = MAX(track_roll_I_integrator , 0);
