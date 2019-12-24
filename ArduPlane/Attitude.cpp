@@ -136,13 +136,13 @@ void Plane::track_roll_attitude()
 	if (count<100) {
 	SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, rollController.track_get_servo_out(0 - ahrs.roll_sensor,  
                                                                                                 disable_integrator));
-	} else if (count<400) {
+	} else if (count>=100 && count<400) {
 	SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, rollController.track_get_servo_out(1000 - ahrs.roll_sensor,  
                                                                                                 disable_integrator));
-	} else if (count<700) {
+	} else if (count>=400 && count<700) {
     SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, rollController.track_get_servo_out(-1000 - ahrs.roll_sensor,  
                                                                                                 disable_integrator));
-    } else {
+    } else if (count>=700 && count<1200) {
     SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, rollController.track_get_servo_out(0 - ahrs.roll_sensor,  
                                                                                                 disable_integrator));
     }
