@@ -127,7 +127,7 @@ void Plane::custom_stabilize_pitch()
                                                                                                   disable_integrator));
 }
 
-void Plane::track_roll_attitude(count)
+void Plane::track_roll_attitude(int count)
 {
 	bool disable_integrator = false;
     if (control_mode == &mode_track_attitude && channel_roll->get_control_in() != 0) {
