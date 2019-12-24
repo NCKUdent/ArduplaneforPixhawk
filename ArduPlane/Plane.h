@@ -209,7 +209,7 @@ private:
     AP_YawController yawController{ahrs, aparm};
     AP_SteerController steerController{ahrs};
 
-    int count;
+  
 #if CONFIG_HAL_BOARD == HAL_BOARD_SITL
     SITL::SITL sitl;
 #endif
