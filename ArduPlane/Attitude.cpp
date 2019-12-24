@@ -127,7 +127,7 @@ void Plane::custom_stabilize_pitch()
                                                                                                   disable_integrator));
 }
 
-void Plane::track_roll_attitude(int count)
+void Plane::track_roll_attitude()
 {
 	bool disable_integrator = false;
     if (control_mode == &mode_track_attitude && channel_roll->get_control_in() != 0) {
@@ -135,16 +135,16 @@ void Plane::track_roll_attitude(int count)
     }
 	if (count<100) {
 	SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, rollController.track_get_servo_out(0 - ahrs.roll_sensor,  
-                                                                                                disable_integrator, count));
+                                                                                                disable_integrator));
 	} else if (count>=100 && count<400) {
 	SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, rollController.track_get_servo_out(1000 - ahrs.roll_sensor,  
-                                                                                                disable_integrator, count));
+                                                                                                disable_integrator));
 	} else if (count>=400 && count<700) {
     SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, rollController.track_get_servo_out(-1000 - ahrs.roll_sensor,  
-                                                                                                disable_integrator, count));
+                                                                                                disable_integrator));
     } else if (count>=700 && count<1200) {
     SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, rollController.track_get_servo_out(0 - ahrs.roll_sensor,  
-                                                                                                disable_integrator, count));
+                                                                                                disable_integrator));
     }
 }
 
@@ -459,7 +459,7 @@ void Plane::stabilize()
 		if (g.stick_mixing == STICK_MIXING_FBW && control_mode != &mode_track_attitude) {
             stabilize_stick_mixing_fbw();
         }
-		track_roll_attitude(count);
+		track_roll_attitude();
 		stabilize_pitch(speed_scaler);
         if (g.stick_mixing == STICK_MIXING_DIRECT || control_mode == &mode_track_attitude) {
             stabilize_stick_mixing_direct();
