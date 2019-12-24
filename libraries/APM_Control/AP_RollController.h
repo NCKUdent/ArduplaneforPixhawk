@@ -24,7 +24,7 @@ public:
 	int32_t get_rate_out(float desired_rate, float scaler);
 	int32_t get_servo_out(int32_t angle_err, float scaler, bool disable_integrator);
 	int32_t custom_get_servo_out(int32_t angle_err, bool disable_integrator);
-	int32_t track_get_servo_out(int32_t angle_err, bool disable_integrator);
+	int32_t track_get_servo_out(int32_t angle_err, bool disable_integrator, int count);
 
 
 	void reset_I();
@@ -89,7 +89,7 @@ private:
 
 	int32_t _get_rate_out(float desired_rate, float scaler, bool disable_integrator);
 	int32_t _custom_get_rate_out(float desired_rate, bool disable_integrator);
-	int32_t _track_get_rate_out(float desired_rate, bool disable_integrator);
+	int32_t _track_get_rate_out(float desired_rate, bool disable_integrator, int count);
 
 
 	AP_AHRS &_ahrs;
