@@ -1,6 +1,6 @@
 #include "Plane.h"
 
-int count;
+
 
 /*
   get a speed scaling number for control surfaces. This is applied to
