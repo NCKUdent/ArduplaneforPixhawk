@@ -363,5 +363,5 @@ int32_t AP_RollController::track_get_servo_out(int32_t angle_err, bool disable_i
 	float angle_err_rad = ToRad((angle_err)/375);
 	float desired_rate = angle_err_rad * outter_P;
 
-    return _track_get_rate_out(desired_rate, disable_integrator, int count);
+    return _track_get_rate_out(desired_rate, disable_integrator,count);
 }
