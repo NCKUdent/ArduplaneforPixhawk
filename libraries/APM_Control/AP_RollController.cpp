@@ -105,7 +105,7 @@ int32_t AP_RollController::_get_rate_out(float desired_rate, float scaler, bool 
     float eas2tas = _ahrs.get_EAS2TAS();
 	float kp_ff = MAX((gains.P - gains.I * gains.tau) * gains.tau  - gains.D , 0) / eas2tas;
     float k_ff = gains.FF / eas2tas;
-	float delta_time    = (float)dt;
+	float delta_time    = (float)dt * 0.001f;
     // Get body rate vector (radians/sec)
 	float omega_x = _ahrs.get_gyro().x;
 	
@@ -234,7 +234,7 @@ int32_t AP_RollController::_custom_get_rate_out(float desired_rate, bool disable
 	float inner_P = 0.0757108607;
 	float inner_I = 0.9967443892;
 	float inner_D = 0.0014377142;
-	float delta_time = (float)dt;
+	float delta_time = (float)dt * 0.001f;
 	
     // Get body rate vector (radians/sec)
 	float omega_x = _ahrs.get_gyro().x;
@@ -305,7 +305,7 @@ int32_t AP_RollController::_track_get_rate_out(float desired_rate, bool disable_
 	float inner_P = 0.0757108607;
 	float inner_I = 0.9967443892;
 	float inner_D = 0.0014377142;
-	float delta_time = (float)dt;
+	float delta_time = (float)dt * 0.001f;
 	
     // Get body rate vector (radians/sec)
 	float omega_x = _ahrs.get_gyro().x;
