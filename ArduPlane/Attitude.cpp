@@ -137,7 +137,7 @@ void Plane::track_roll_attitude()
 	SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, rollController.track_get_servo_out(0 - ahrs.roll_sensor,  
                                                                                                 disable_integrator));
     } else {
-    SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, rollController.track_get_servo_out(1000 - ahrs.roll_sensor,  
+    SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, rollController.track_get_servo_out(1111 - ahrs.roll_sensor,  
                                                                                                 disable_integrator));
     }
 }
