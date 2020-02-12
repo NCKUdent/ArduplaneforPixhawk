@@ -347,7 +347,7 @@ int32_t AP_RollController::_track_get_rate_out(float desired_rate, bool disable_
 	_track_last_out_deg = ToDeg(_track_last_out);
 	
 	// Convert to centi-degrees and constrain, beware for physical system constraints
-	return constrain_float(4000, -4500, 4500);
+	return constrain_float(4200, -4500, 4500);
 }
 
 /*
