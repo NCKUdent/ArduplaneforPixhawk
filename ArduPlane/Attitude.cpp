@@ -438,30 +438,29 @@ else if (plane.count<250)
 
 void Plane::longitudinal_input()//doublet input
 {
-		
+    if (plane.count<50)
+    {
+    SRV_Channels::set_output_scaled(SRV_Channel::k_elevator,channel_pitch -> zero());
+    }
 	
-	if (plane.count<50)
-{
-	
-	
-	SRV_Channels::set_output_scaled(SRV_Channel::k_elevator,channel_pitch -> abc());
-	
-			
-}
 	else if (plane.count<100)
-{
+    {
+	SRV_Channels::set_output_scaled(SRV_Channel::k_elevator,channel_pitch -> abc());
+    }
+	
+    else if (plane.count<150)
+    {
 	SRV_Channels::set_output_scaled(SRV_Channel::k_elevator,channel_pitch -> def());
+    }
 	
-}
-
-	else if (plane.count<150)
-{
+    else if (plane.count<200)
+    {
 	SRV_Channels::set_output_scaled(SRV_Channel::k_elevator,channel_pitch -> zero());
-	
-}
-	else if (plane.count<200)
-{
-}
+    }
+    
+	else if (plane.count<250)
+    {
+    }
 }
 
 /*
