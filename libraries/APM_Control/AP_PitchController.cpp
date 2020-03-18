@@ -308,7 +308,7 @@ int32_t AP_PitchController::get_servo_out(int32_t angle_err, float scaler, bool 
         gains.tau.set(0.1f);
     }
 
-    //rate_offset = _get_coordination_rate_offset(aspeed, inverted);
+    rate_offset = _get_coordination_rate_offset(aspeed, inverted);
 	
 	// Calculate the desired pitch rate (deg/sec) from the angle error
 	float desired_rate = angle_err * 0.01f / gains.tau;
