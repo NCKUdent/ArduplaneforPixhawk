@@ -529,7 +529,7 @@ void Plane::stabilize()
         stabilize_acro(speed_scaler);
         
     }
-    } else if ((control_mode == &mode_qstabilize ||
+    else if ((control_mode == &mode_qstabilize ||
                 control_mode == &mode_qhover ||
                 control_mode == &mode_qloiter ||
                 control_mode == &mode_qland ||
