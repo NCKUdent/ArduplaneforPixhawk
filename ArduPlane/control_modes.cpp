@@ -79,6 +79,12 @@ Mode *Plane::mode_from_mode_num(const enum Mode::Number num)
 	case Mode::Number::TRACK_ATTITUDE:
         ret = &mode_track_attitude;
         break;
+    case Mode::Number::LONGITUDINAL:
+        ret = &mode_longitudinal;
+        break;
+    case Mode::Number::LATERAL:
+        ret = &mode_lateral;
+        break;
     }
     return ret;
 }
