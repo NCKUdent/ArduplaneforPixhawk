@@ -1,7 +1,7 @@
 #include "mode.h"
 #include "Plane.h"
 
-bool ModeLATERAL1::_enter()
+bool ModeLATERAL1:_enter()
 {
     plane.throttle_allows_nudging = false;
     plane.auto_throttle_mode = false;
@@ -13,7 +13,7 @@ bool ModeLATERAL1::_enter()
     return true;
 }
 
-void ModeLATERAL1::update()
+void ModeLATERAL::update()
 {
    
 	plane.nav_pitch_cd =0 ;
