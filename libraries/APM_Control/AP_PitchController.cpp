@@ -540,12 +540,12 @@ int32_t AP_PitchController::_get_rate_out_noroll(float desired_rate, float scale
 */
 int32_t AP_PitchController::get_rate_out_noroll(float desired_rate, float scaler)
 {
-    float aspeed;
-	if (!_ahrs.airspeed_estimate(&aspeed)) {
+    float aspeed_noroll;
+	if (!_ahrs.airspeed_estimate(&aspeed_noroll)) {
 	    // If no airspeed available use average of min and max
-        aspeed = 0.5f*(float(aparm.airspeed_min) + float(aparm.airspeed_max));
+        aspeed_noroll = 0.5f*(float(aparm.airspeed_min) + float(aparm.airspeed_max));
 	}
-    return _get_rate_out_noroll(desired_rate, scaler, false, aspeed);
+    return _get_rate_out_noroll(desired_rate, scaler, false, aspeed_noroll);
 }
 
 /*
@@ -555,7 +555,7 @@ int32_t AP_PitchController::get_rate_out_noroll(float desired_rate, float scaler
   Also returns the inverted flag and the estimated airspeed in m/s for
   use by the rest of the pitch controller
  */
-float AP_PitchController::_get_coordination_rate_offset_noroll(float &aspeed, bool &inverted) const
+float AP_PitchController::_get_coordination_rate_offset_noroll(float &aspeed_noroll, bool &inverted) const
 {
 	float rate_offset;
 	float bank_angle = _ahrs.roll;
@@ -572,9 +572,9 @@ float AP_PitchController::_get_coordination_rate_offset_noroll(float &aspeed, bo
 			bank_angle = constrain_float(bank_angle,-radians(180),-radians(100));
 		}
 	}
-	if (!_ahrs.airspeed_estimate(&aspeed)) {
+	if (!_ahrs.airspeed_estimate(&aspeed_noroll)) {
 	    // If no airspeed available use average of min and max
-        aspeed = 0.5f*(float(aparm.airspeed_min) + float(aparm.airspeed_max));
+        aspeed_noroll = 0.5f*(float(aparm.airspeed_min) + float(aparm.airspeed_max));
 	}
     if (abs(_ahrs.pitch_sensor) > 7000) {
         // don't do turn coordination handling when at very high pitch angles
