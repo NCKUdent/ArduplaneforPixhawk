@@ -59,7 +59,6 @@ private:
 	uint32_t _last_t;
 	float _last_out;
 	float _last_out_deg;
-    float aspeed_noroll;
 
 	float _integrator;
 	float roll_I_integrator;
