@@ -105,6 +105,8 @@ void Plane::stabilize_roll(float speed_scaler)
                                                                                          disable_integrator));
 }
 
+
+
 /*
   Geosat &mode_stabilize mode
 */
@@ -485,7 +487,12 @@ void Plane::stabilize()
 		//stabilize_yaw1(speed_scaler);
 		lateral_input();
 	}
+	if (control_mode == &mode_lateral1) 
+	{
 
+        stabilize_pitch1(speed_scaler);
+		lateral_input();
+	}
 	if (control_mode == &mode_longitudinal)
 	{
 		stabilize_roll(speed_scaler);
