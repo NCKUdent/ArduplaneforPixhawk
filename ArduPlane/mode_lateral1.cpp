@@ -16,7 +16,7 @@ bool ModeLateral1::_enter()
 void ModeLateral1::update()
 {
    
-	plane.nav_pitch_cd1 =0 ;
+	plane.nav_pitch_cd =0 ;
 
 	plane.count=plane.count+1;
 
