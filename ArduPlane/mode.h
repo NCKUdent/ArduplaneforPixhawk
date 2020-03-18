@@ -42,6 +42,7 @@ public:
 		TRACK_ATTITUDE = 25,
         LONGITUDINAL = 26,
         LATERAL = 27,
+        LATERAL1 = 28,
     };
 
     // Constructor
@@ -286,6 +287,22 @@ public:
     Number mode_number() const override { return Number::LATERAL; }
     const char *name() const override { return "LATERAL"; }
     const char *name4() const override { return "LAT"; }
+
+    // methods that affect movement of the vehicle in this mode
+    void update() override;
+
+protected:
+
+    bool _enter() override;
+};
+
+class ModeLateral1 : public Mode
+{
+public:
+
+    Number mode_number() const override { return Number::LATERAL1; }
+    const char *name() const override { return "LATERAL1"; }
+    const char *name4() const override { return "LAT1"; }
 
     // methods that affect movement of the vehicle in this mode
     void update() override;
