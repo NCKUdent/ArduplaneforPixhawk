@@ -491,7 +491,7 @@ int32_t AP_PitchController::_get_rate_out_noroll(float desired_rate, float scale
     _pid_info.target = desired_rate;
     _pid_info.actual = achieved_rate;
 
-    if (autotune.running && aspeed > aparm.airspeed_min) {
+    if (autotune.running && aspeed_noroll > aparm.airspeed_min) {
         // let autotune have a go at the values 
         // Note that we don't pass the integrator component so we get
         // a better idea of how much the base PD controller
