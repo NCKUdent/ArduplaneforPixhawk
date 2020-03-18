@@ -211,6 +211,7 @@ private:
     // Attitude to servo controllers
     AP_RollController rollController{ahrs, aparm};
     AP_PitchController pitchController{ahrs, aparm};
+    AP_PitchController1 pitchController1{ahrs, aparm};
     AP_YawController yawController{ahrs, aparm};
     AP_SteerController steerController{ahrs};
 
