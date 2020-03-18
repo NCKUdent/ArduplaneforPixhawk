@@ -469,7 +469,7 @@ void Plane::longitudinal_input()//doublet input
  */
 void Plane::stabilize()
 {
-	count = count+1;
+	//count = count+1;
     if (control_mode == &mode_manual) {
         // reset steering controls
         steer_state.locked_course = false;
