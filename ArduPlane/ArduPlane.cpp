@@ -530,7 +530,7 @@ void Plane::update_navigation()
 	case Mode::Number::TRACK_ATTITUDE:
     case Mode::Number::LONGITUDINAL:
     case Mode::Number::LATERAL:
-    case Mode::Number::LATERAL1
+    case Mode::Number::LATERAL1:
         // nothing to do
         break;
     }
