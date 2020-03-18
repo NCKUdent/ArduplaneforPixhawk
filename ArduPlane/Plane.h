@@ -169,7 +169,9 @@ public:
     int16_t id_input;
     void setup() override;
     void loop() override;
-    void delay(int sec)
+    void delay(int sec);
+        float last_aileron;
+    float last_elevator;
         
 {
 	time_t _t;
