@@ -40,6 +40,8 @@ public:
         QACRO         = 23,
 		CUSTOM_STABILIZE = 24,
 		TRACK_ATTITUDE = 25,
+        LONGITUDINAL = 26,
+        LATERAL = 27,
     };
 
     // Constructor
@@ -260,6 +262,39 @@ protected:
 
     bool _enter() override;
 };
+
+class LONGITUDINAL : public Mode
+{
+public:
+
+    Number mode_number() const override { return Number::LONGITUDINAL; }
+    const char *name() const override { return "LONGITUDINAL"; }
+    const char *name4() const override { return "LONG"; }
+
+    // methods that affect movement of the vehicle in this mode
+    void update() override;
+
+protected:
+
+    bool _enter() override;
+};
+
+class LATERAL : public Mode
+{
+public:
+
+    Number mode_number() const override { return Number::LATERAL; }
+    const char *name() const override { return "LATERAL"; }
+    const char *name4() const override { return "LAT"; }
+
+    // methods that affect movement of the vehicle in this mode
+    void update() override;
+
+protected:
+
+    bool _enter() override;
+};
+
 
 class ModeTraining : public Mode
 {
