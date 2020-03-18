@@ -485,6 +485,7 @@ void Plane::stabilize()
         // reset steering controls
         steer_state.locked_course = false;
         steer_state.locked_course_err = 0;
+        SRV_Channels::
 		//count = 0;
         return;
     }
