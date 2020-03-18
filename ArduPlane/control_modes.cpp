@@ -85,6 +85,9 @@ Mode *Plane::mode_from_mode_num(const enum Mode::Number num)
     case Mode::Number::LATERAL:
         ret = &mode_lateral;
         break;
+    case Mode::Number::LATERAL1:
+        ret = &mode_lateral;
+        break;
     }
     return ret;
 }
