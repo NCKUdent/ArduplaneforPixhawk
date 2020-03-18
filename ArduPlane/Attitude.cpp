@@ -158,7 +158,7 @@ void Plane::stabilize_pitch1(float speed_scaler)
     if (control_mode == &mode_stabilize && channel_pitch->get_control_in() != 0) {
         disable_integrator = true;
     }
-    SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, pitchController.get_servo_out(demanded_pitch - ahrs.pitch_sensor, 
+    SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, pitchController.get_servo_out_noroll(demanded_pitch - ahrs.pitch_sensor, 
                                                                                            speed_scaler, 
                                                                                            disable_integrator));
 }
