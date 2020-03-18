@@ -555,38 +555,7 @@ int32_t AP_PitchController::get_rate_out_noroll(float desired_rate, float scaler
   Also returns the inverted flag and the estimated airspeed in m/s for
   use by the rest of the pitch controller
  */
-float AP_PitchController::_get_coordination_rate_offset_noroll(float &aspeed_noroll, bool &inverted) const
-{
-	float rate_offset;
-	float bank_angle = _ahrs.roll;
 
-	// limit bank angle between +- 80 deg if right way up
-	if (fabsf(bank_angle) < radians(90))	{
-	    bank_angle = constrain_float(bank_angle,-radians(80),radians(80));
-        inverted = false;
-	} else {
-		inverted = true;
-		if (bank_angle > 0.0f) {
-			bank_angle = constrain_float(bank_angle,radians(100),radians(180));
-		} else {
-			bank_angle = constrain_float(bank_angle,-radians(180),-radians(100));
-		}
-	}
-	if (!_ahrs.airspeed_estimate(&aspeed_noroll)) {
-	    // If no airspeed available use average of min and max
-        aspeed_noroll = 0.5f*(float(aparm.airspeed_min) + float(aparm.airspeed_max));
-	}
-    if (abs(_ahrs.pitch_sensor) > 7000) {
-        // don't do turn coordination handling when at very high pitch angles
-        rate_offset = 0;
-    } else {
-        rate_offset = cosf(_ahrs.pitch)*fabsf(ToDeg((GRAVITY_MSS / MAX((aspeed_noroll * _ahrs.get_EAS2TAS()) , float(aparm.airspeed_min))) * tanf(bank_angle) * sinf(bank_angle))) * _roll_ff;
-    }
-	if (inverted) {
-		rate_offset = -rate_offset;
-	}
-    return rate_offset;
-}
 
 // Function returns an equivalent elevator deflection in centi-degrees in the range from -4500 to 4500
 // A positive demand is up
