@@ -133,7 +133,7 @@ void Plane::track_roll_attitude()
     if (control_mode == &mode_track_attitude && channel_roll->get_control_in() != 0) {
         disable_integrator = true;
     }
-	if (count>=0 && count<100) {
+	if (timecount>=0 && timecount<100) {
 	SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, rollController.track_get_servo_out(0 - ahrs.roll_sensor,  
                                                                                                 disable_integrator));
     } else {
@@ -398,6 +398,70 @@ void Plane::stabilize_acro(float speed_scaler)
     steering_control.steering = steering_control.rudder = rudder_input();
 }
 
+void Plane::lateral_input()//doublet input
+{
+	if (plane.count<50)
+{
+	
+	
+	SRV_Channels::set_output_scaled(SRV_Channel::k_aileron,channel_roll -> abc());
+	SRV_Channels::set_output_scaled(SRV_Channel::k_rudder,channel_rudder -> zero());
+			
+}
+else if (plane.count<100)
+{
+	SRV_Channels::set_output_scaled(SRV_Channel::k_aileron,channel_roll -> def());
+	
+}
+
+else if (plane.count<150)
+{
+	SRV_Channels::set_output_scaled(SRV_Channel::k_aileron,channel_roll -> zero());
+	SRV_Channels::set_output_scaled(SRV_Channel::k_rudder,channel_rudder -> abc());
+}
+else if (plane.count<200)
+{
+	SRV_Channels::set_output_scaled(SRV_Channel::k_rudder,channel_rudder -> def());
+
+}
+	
+
+else if (plane.count<250)
+{
+	SRV_Channels::set_output_scaled(SRV_Channel::k_rudder,channel_rudder -> zero());
+	
+}
+}
+
+
+void Plane::longitudinal_input()//doublet input
+{
+		
+	
+	if (plane.count<50)
+{
+	
+	
+	SRV_Channels::set_output_scaled(SRV_Channel::k_elevator,channel_pitch -> abc());
+	
+			
+}
+	else if (plane.count<100)
+{
+	SRV_Channels::set_output_scaled(SRV_Channel::k_elevator,channel_pitch -> def());
+	
+}
+
+	else if (plane.count<150)
+{
+	SRV_Channels::set_output_scaled(SRV_Channel::k_elevator,channel_pitch -> zero());
+	
+}
+	else if (plane.count<200)
+{
+}
+}
+
 /*
   main stabilization function for all 3 axes
  */
@@ -412,7 +476,23 @@ void Plane::stabilize()
         return;
     }
     float speed_scaler = get_speed_scaler();
+	if (control_mode == &mode_lateral) 
+	{
+		//stabilize_acro(speed_scaler);
+		//stabilize_roll(speed_scaler);
+        stabilize_pitch(speed_scaler);
+		//stabilize_yaw(speed_scaler);
+		//stabilize_yaw1(speed_scaler);
+		lateral_input();
+	}
 
+	if (control_mode == &mode_longitudinal)
+	{
+		stabilize_roll(speed_scaler);
+		stabilize_yaw(speed_scaler);
+		
+		longitudinal_input();
+	}
     if (quadplane.in_tailsitter_vtol_transition()) {
         /*
           during transition to vtol in a tailsitter try to raise the
