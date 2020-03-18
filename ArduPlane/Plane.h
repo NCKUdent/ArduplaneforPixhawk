@@ -169,7 +169,15 @@ public:
     int16_t id_input;
     void setup() override;
     void loop() override;
-
+    void delay(int sec)
+        
+{
+	time_t _t;
+	_t = time (NULL); // 讀取系統時間
+	while(time (NULL) <= _t + sec){}; // 比對時間差
+} 
+        
+        
 private:
 
     // key aircraft parameters passed to multiple libraries
