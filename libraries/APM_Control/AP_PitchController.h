@@ -25,7 +25,7 @@ public:
     int32_t get_rate_out_noroll(float desired_rate, float scaler);
 	int32_t get_servo_out(int32_t angle_err, float scaler, bool disable_integrator);
 	int32_t custom_get_servo_out(int32_t angle_err, bool disable_integrator);
-    int32_t get_servo_out_noroll(int32_t angle_err, bool disable_integrator);
+	int32_t get_servo_out_noroll(int32_t angle_err, float scaler, bool disable_integrator);
 
 
 	void reset_I();
