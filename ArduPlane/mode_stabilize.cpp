@@ -1,5 +1,9 @@
 #include "mode.h"
 #include "Plane.h"
+#include <ctime>
+int16_t a =-3000;
+int16_t b = 3000;
+bool enable_special_input=true;
 
 bool ModeStabilize::_enter()
 {
