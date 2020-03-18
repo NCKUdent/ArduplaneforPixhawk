@@ -23,8 +23,8 @@ void ModeManual::update()
     SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, plane.channel_roll->get_control_in_zero_dz());
     SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, plane.channel_pitch->get_control_in_zero_dz());
     
-    plane.last_aileron = plane.channel_roll;
-    plane.last_elevator = plane.channel_pitch;
+    plane.last_aileron = RC_Channel::rc_channel1;
+    plane.last_elevator = RC_Channel::rc_channel2;
     
     plane.id_input = plane.steering_control.steering = plane.steering_control.rudder = plane.channel_rudder->get_control_in_zero_dz();
 }
