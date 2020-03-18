@@ -1,7 +1,7 @@
 #include "mode.h"
 #include "Plane.h"
 
-bool ModeLATERAL1:_enter()
+bool ModeLATERAL:_enter()
 {
     plane.throttle_allows_nudging = false;
     plane.auto_throttle_mode = false;
