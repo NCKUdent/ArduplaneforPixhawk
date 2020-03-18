@@ -620,9 +620,7 @@ int32_t AP_PitchController::get_servo_out_noroll(int32_t angle_err, float scaler
 	// much higher rates are needed inverted	
 
 	
-	if (inverted) {
-		desired_rate = -desired_rate;
-	}
+
 
     return _get_rate_out_noroll(desired_rate, scaler, disable_integrator, aspeed);
 }
