@@ -415,7 +415,7 @@ int32_t AP_PitchController::custom_get_servo_out(int32_t angle_err, bool disable
 
 int32_t AP_PitchController::_get_rate_out_noroll(float desired_rate, float scaler, bool disable_integrator, float aspeed_noroll)
 {
-	float aspeed_noroll;
+	
     uint32_t tnow = AP_HAL::millis();
 	uint32_t dt = tnow - _last_t;
 	
