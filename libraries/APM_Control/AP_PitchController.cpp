@@ -604,7 +604,7 @@ int32_t AP_PitchController::get_servo_out_noroll(int32_t angle_err, float scaler
 	// Pitch rate offset is the component of turn rate about the pitch axis
 	float aspeed;
 	//float _rate_offset;
-	bool inverted;
+	//bool inverted;
 
     if (gains.tau < 0.1f) {
         gains.tau.set(0.1f);
