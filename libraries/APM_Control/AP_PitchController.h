@@ -69,9 +69,9 @@ private:
 
 	int32_t _get_rate_out(float desired_rate, float scaler, bool disable_integrator, float aspeed);
     float   _get_coordination_rate_offset(float &aspeed, bool &inverted) const;
-    float   _get_coordination_rate_offset_noroll(float &aspeed, bool &inverted) const;
+    float   _get_coordination_rate_offset_noroll(float &aspeed_noroll, bool &inverted) const;
 	int32_t _custom_get_rate_out(float desired_rate, bool disable_integrator);
-    int32_t _get_rate_out_noroll(float desired_rate, float scaler, bool disable_integrator, float aspeed);
+    int32_t _get_rate_out_noroll(float desired_rate, float scaler, bool disable_integrator, float aspeed_noroll);
 
     
 	
