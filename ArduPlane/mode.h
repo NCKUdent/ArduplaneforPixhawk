@@ -263,7 +263,7 @@ protected:
     bool _enter() override;
 };
 
-class LONGITUDINAL : public Mode
+class ModeLongitudinal : public Mode
 {
 public:
 
@@ -279,7 +279,7 @@ protected:
     bool _enter() override;
 };
 
-class LATERAL : public Mode
+class ModeLateral : public Mode
 {
 public:
 
