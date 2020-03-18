@@ -15,32 +15,28 @@ bool ModeLateral::_enter()
 
 void ModeLateral::update()
 {
-   
-plane.nav_pitch_cd =0 ;
 
+    plane.nav_pitch_cd =0 ;
 	plane.count=plane.count+1;
-
+ 
 if (plane.count<100)
-{
-		
+    {
 	plane.steering_control.steering = plane.steering_control.rudder = 0;
-}
+    }
+    
 else if (plane.count<150)
-{
-	plane.steering_control.steering = plane.steering_control.rudder = 1500;
-	
-			
-}
+    {
+	plane.steering_control.steering = plane.steering_control.rudder = 1500;	
+    }
+
 else if (plane.count<200)
-{
+    {
 	plane.steering_control.steering = plane.steering_control.rudder = -1500;
-	
-}
+    }
 
 else if (plane.count<250)
-{
+    {
 	plane.steering_control.steering = plane.steering_control.rudder = 0;
-	
-}
+    }
 
 }
