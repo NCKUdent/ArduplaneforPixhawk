@@ -1,6 +1,7 @@
 #include "Plane.h"
 
 int timecount;
+float lastinput;
 
 /*
   get a speed scaling number for control surfaces. This is applied to
@@ -485,6 +486,8 @@ void Plane::stabilize()
         // reset steering controls
         steer_state.locked_course = false;
         steer_state.locked_course_err = 0;
+        
+        
         
 		//count = 0;
         return;
