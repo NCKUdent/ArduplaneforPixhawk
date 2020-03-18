@@ -441,7 +441,7 @@ else if (plane.count<300)
 	
     }
     
-else if (plane.count<350)
+else 
     {
 	SRV_Channels::set_output_scaled(SRV_Channel::k_aileron,channel_roll -> zero()+plane.last_aileron);
     SRV_Channels::set_output_scaled(SRV_Channel::k_rudder,channel_rudder -> zero());
@@ -476,7 +476,7 @@ void Plane::longitudinal_input()//doublet input
 
     }
     
-	else if (plane.count<250)
+	else
     {
     SRV_Channels::set_output_scaled(SRV_Channel::k_aileron,channel_roll -> zero()+plane.last_aileron);
 
