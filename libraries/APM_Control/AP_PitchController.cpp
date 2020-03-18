@@ -633,7 +633,3 @@ int32_t AP_PitchController::get_servo_out_noroll(int32_t angle_err, float scaler
     return _get_rate_out_noroll(desired_rate, scaler, disable_integrator, aspeed);
 }
 
-void AP_PitchController::reset_I()
-{
-	_pid_info.I = 0;
-}
