@@ -454,7 +454,7 @@ int32_t AP_PitchController::_get_rate_out_noroll(float desired_rate, float scale
         }
         float ki_rate = k_I * gains.tau;
 		//only integrate if gain and time step are positive and airspeed above min value.
-		if (dt > 0 && aspeed_noroll > 0.5f*float(aparm.airspeed_min)) {
+		if (dt > 0 && aspeed > 0.5f*float(aparm.airspeed_min)) {
 		    float integrator_delta = rate_error * ki_rate * delta_time * scaler;
 			if (_last_out < -45) {
 				// prevent the integrator from increasing if surface defln demand is above the upper limit
@@ -492,7 +492,7 @@ int32_t AP_PitchController::_get_rate_out_noroll(float desired_rate, float scale
     _pid_info.target = desired_rate;
     _pid_info.actual = achieved_rate;
 
-    if (autotune.running && aspeed_noroll > aparm.airspeed_min) {
+    if (autotune.running && aspeed > aparm.airspeed_min) {
         // let autotune have a go at the values 
         // Note that we don't pass the integrator component so we get
         // a better idea of how much the base PD controller
@@ -541,12 +541,12 @@ int32_t AP_PitchController::_get_rate_out_noroll(float desired_rate, float scale
 */
 int32_t AP_PitchController::get_rate_out_noroll(float desired_rate, float scaler)
 {
-    float aspeed_noroll;
-	if (!_ahrs.airspeed_estimate(&aspeed_noroll)) {
+    float aspeed;
+	if (!_ahrs.airspeed_estimate(&aspeed)) {
 	    // If no airspeed available use average of min and max
-        aspeed_noroll = 0.5f*(float(aparm.airspeed_min) + float(aparm.airspeed_max));
+        aspeed = 0.5f*(float(aparm.airspeed_min) + float(aparm.airspeed_max));
 	}
-    return _get_rate_out_noroll(desired_rate, scaler, false, aspeed_noroll);
+    return _get_rate_out_noroll(desired_rate, scaler, false, aspeed);
 }
 
 /*
@@ -572,7 +572,7 @@ int32_t AP_PitchController::get_servo_out_noroll(int32_t angle_err, float scaler
 	// Calculate offset to pitch rate demand required to maintain pitch angle whilst banking
 	// Calculate ideal turn rate from bank angle and airspeed assuming a level coordinated turn
 	// Pitch rate offset is the component of turn rate about the pitch axis
-	float aspeed_noroll;
+	float aspeed;
 	//float _rate_offset;
 	//bool inverted;
 
@@ -580,7 +580,7 @@ int32_t AP_PitchController::get_servo_out_noroll(int32_t angle_err, float scaler
         gains.tau.set(0.1f);
     }
 
-    //_rate_offset = _get_coordination_rate_offset(aspeed_noroll, inverted);
+    //_rate_offset = _get_coordination_rate_offset(aspeed, inverted);
 	
 	// Calculate the desired pitch rate (deg/sec) from the angle error
 	float desired_rate = angle_err * 0.01f / gains.tau;
@@ -592,6 +592,6 @@ int32_t AP_PitchController::get_servo_out_noroll(int32_t angle_err, float scaler
 	
 
 
-    return _get_rate_out_noroll(desired_rate, scaler, disable_integrator, aspeed_noroll);
+    return _get_rate_out_noroll(desired_rate, scaler, disable_integrator, aspeed);
 }
 
