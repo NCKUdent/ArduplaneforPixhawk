@@ -474,7 +474,7 @@ void Plane::stabilize()
         // reset steering controls
         steer_state.locked_course = false;
         steer_state.locked_course_err = 0;
-		count = 0;
+		//count = 0;
         return;
     }
     float speed_scaler = get_speed_scaler();
