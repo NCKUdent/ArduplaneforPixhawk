@@ -186,8 +186,8 @@ private:
     Parameters g;
     ParametersG2 g2;
 
-    float last_aileron;
-    float last_elevator;
+    int last_aileron;
+    int last_elevator;
     
     // main loop scheduler
     AP_Scheduler scheduler;
