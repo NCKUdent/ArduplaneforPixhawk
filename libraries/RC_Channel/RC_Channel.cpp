@@ -269,6 +269,27 @@ int16_t RC_Channel::get_control_in_zero_dz(void) const
     return pwm_to_angle_dz(0);
 }
 
+int16_t RC_Channel::abc(void) const
+{
+    return 1500;
+}
+
+
+int16_t RC_Channel::def(void) const
+{
+    return -1500;
+}
+
+int16_t RC_Channel::zero(void) const
+{
+    return 0;
+}
+int16_t RC_Channel::id_throttle_input(void) const
+{
+    return id_input + 100; 
+		
+	
+}
 // ------------------------------------------
 
 float
