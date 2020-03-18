@@ -528,6 +528,8 @@ void Plane::update_navigation()
     case Mode::Number::QACRO:
 	case Mode::Number::CUSTOM_STABILIZE:
 	case Mode::Number::TRACK_ATTITUDE:
+    case Mode::Number::LONGITUDINAL:
+    case Mode::Number::LATERAL:
         // nothing to do
         break;
     }
