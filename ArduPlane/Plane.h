@@ -140,7 +140,6 @@ public:
 	friend class ModeTrackAttitude;
     friend class ModeLongitudinal;
     friend class ModeLateral;
-    friend class ModeLateral1;
     friend class ModeTraining;
     friend class ModeAcro;
     friend class ModeFBWA;
@@ -273,7 +272,6 @@ private:
 	ModeTrackAttitude mode_track_attitude;
     ModeLongitudinal mode_longitudinal;
     ModeLateral mode_lateral;
-    ModeLateral1 mode_lateral1;
     ModeTraining mode_training;
     ModeAcro mode_acro;
     ModeFBWA mode_fbwa;
