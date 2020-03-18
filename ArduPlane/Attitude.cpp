@@ -144,7 +144,24 @@ void Plane::track_roll_attitude()
     }
 }
 
-
+void Plane::stabilize_pitch1(float speed_scaler)
+{
+    int8_t force_elevator = takeoff_tail_hold();
+    if (force_elevator != 0) {
+        // we are holding the tail down during takeoff. Just convert
+        // from a percentage to a -4500..4500 centidegree angle
+        SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, 45*force_elevator);
+        return;
+    }
+    int32_t demanded_pitch = nav_pitch_cd + g.pitch_trim_cd + SRV_Channels::get_output_scaled(SRV_Channel::k_throttle) * g.kff_throttle_to_pitch;
+    bool disable_integrator = false;
+    if (control_mode == &mode_stabilize && channel_pitch->get_control_in() != 0) {
+        disable_integrator = true;
+    }
+    SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, pitchController.get_servo_out(demanded_pitch - ahrs.pitch_sensor, 
+                                                                                           speed_scaler, 
+                                                                                           disable_integrator));
+}
 
 /*
   this is the main pitch stabilization function. It takes the
