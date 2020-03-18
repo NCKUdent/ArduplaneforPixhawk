@@ -76,6 +76,16 @@ public:
     // get control input with zero deadzone
     int16_t    get_control_in_zero_dz(void) const;
 
+    	//adding
+	int16_t    abc(void) const;
+
+	int16_t    def(void) const;
+	
+	int16_t    zero(void) const;
+	
+	int16_t    id_throttle_input(void) const;
+	int16_t    id_input;
+
     int16_t    get_radio_min() const {return radio_min.get();}
     void       set_radio_min(int16_t val) { radio_min = val;}
 
