@@ -140,6 +140,7 @@ public:
 	friend class ModeTrackAttitude;
     friend class ModeLongitudinal;
     friend class ModeLateral;
+    friend class ModeLateral1;
     friend class ModeTraining;
     friend class ModeAcro;
     friend class ModeFBWA;
@@ -272,6 +273,7 @@ private:
 	ModeTrackAttitude mode_track_attitude;
     ModeLongitudinal mode_longitudinal;
     ModeLateral mode_lateral;
+    ModeLateral1 mode_lateral1;
     ModeTraining mode_training;
     ModeAcro mode_acro;
     ModeFBWA mode_fbwa;
@@ -973,6 +975,7 @@ private:
     float get_speed_scaler(void);
     bool stick_mixing_enabled(void);
     void stabilize_roll(float speed_scaler);
+    void stabilize_roll1(float speed_scaler);
 	void custom_stabilize_roll();
 	void custom_stabilize_pitch();
 	void track_roll_attitude();
