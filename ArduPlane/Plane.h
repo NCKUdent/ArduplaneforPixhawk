@@ -138,6 +138,8 @@ public:
     friend class ModeStabilize;
 	friend class ModeCustomStabilize;
 	friend class ModeTrackAttitude;
+    friend class ModeLongitudinal;
+    friend class ModeLateral;
     friend class ModeTraining;
     friend class ModeAcro;
     friend class ModeFBWA;
@@ -163,6 +165,8 @@ public:
     Plane(void);
 
     // HAL::Callbacks implementation.
+    int count;
+    int16_t id_input;
     void setup() override;
     void loop() override;
 
@@ -266,6 +270,8 @@ private:
     ModeStabilize mode_stabilize;
 	ModeCustomStabilize mode_custom_stabilize;
 	ModeTrackAttitude mode_track_attitude;
+    ModeLongitudinal mode_longitudinal;
+    ModeLateral mode_lateral;
     ModeTraining mode_training;
     ModeAcro mode_acro;
     ModeFBWA mode_fbwa;
