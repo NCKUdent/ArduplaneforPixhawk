@@ -24,6 +24,7 @@ public:
 	int32_t get_rate_out(float desired_rate, float scaler);
 	int32_t get_servo_out(int32_t angle_err, float scaler, bool disable_integrator);
 	int32_t custom_get_servo_out(int32_t angle_err, bool disable_integrator);
+    int32_t get_servo_out_noroll(int32_t angle_err, bool disable_integrator);
 
 
 	void reset_I();
@@ -68,6 +69,7 @@ private:
 	int32_t _get_rate_out(float desired_rate, float scaler, bool disable_integrator, float aspeed);
     float   _get_coordination_rate_offset(float &aspeed, bool &inverted) const;
 	int32_t _custom_get_rate_out(float desired_rate, bool disable_integrator);
+    int32_t get_rate_out_noroll(float desired_rate, bool disable_integrator);
 
 	
 	AP_AHRS &_ahrs;
