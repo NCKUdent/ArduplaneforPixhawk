@@ -329,7 +329,7 @@ int32_t AP_PitchController::get_servo_out(int32_t angle_err, float scaler, bool 
 	}
 
 	// Apply the turn correction offset
-	desired_rate = desired_rate + rate_offset;
+	//desired_rate = desired_rate + rate_offset;
 
     return _get_rate_out(desired_rate, scaler, disable_integrator, aspeed);
 }
