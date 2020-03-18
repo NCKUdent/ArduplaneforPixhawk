@@ -603,14 +603,14 @@ int32_t AP_PitchController::get_servo_out_noroll(int32_t angle_err, float scaler
 	// Calculate ideal turn rate from bank angle and airspeed assuming a level coordinated turn
 	// Pitch rate offset is the component of turn rate about the pitch axis
 	float aspeed;
-	float _rate_offset;
+	//float _rate_offset;
 	bool inverted;
 
     if (gains.tau < 0.1f) {
         gains.tau.set(0.1f);
     }
 
-    _rate_offset = _get_coordination_rate_offset(aspeed, inverted);
+    //_rate_offset = _get_coordination_rate_offset(aspeed, inverted);
 	
 	// Calculate the desired pitch rate (deg/sec) from the angle error
 	float desired_rate = angle_err * 0.01f / gains.tau;
