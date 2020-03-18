@@ -173,11 +173,11 @@ public:
         float last_aileron;
     float last_elevator;
         
-{
+
 	time_t _t;
 	_t = time (NULL); // 讀取系統時間
 	while(time (NULL) <= _t + sec){}; // 比對時間差
-} 
+
         
         
 private:
