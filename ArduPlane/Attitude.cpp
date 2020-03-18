@@ -418,7 +418,7 @@ else if (plane.count<100)
 else if (plane.count<150)
     {
     SRV_Channels::set_output_scaled(SRV_Channel::k_aileron,channel_roll -> zero());
-	SRV_Channels::set_output_scaled(SRV_Channel::k_aileron,channel_rudder -> def());
+	SRV_Channels::set_output_scaled(SRV_Channel::k_rudder,channel_rudder -> def());
     }
 
 else if (plane.count<200)
