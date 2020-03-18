@@ -976,6 +976,8 @@ private:
 	void custom_stabilize_roll();
 	void custom_stabilize_pitch();
 	void track_roll_attitude();
+    void lateral_input();
+    void longitudinal_input();
     void stabilize_pitch(float speed_scaler);
     void stabilize_stick_mixing_direct();
     void stabilize_stick_mixing_fbw();
