@@ -54,6 +54,7 @@ void GCS_Plane::update_vehicle_sensor_status_flags(void)
 	case Mode::Number::TRACK_ATTITUDE:
     case Mode::Number::LONGITUDINAL:
     case Mode::Number::LATERAL:
+    case Mode::Number::LATERAL1:
     case Mode::Number::FLY_BY_WIRE_A:
     case Mode::Number::AUTOTUNE:
     case Mode::Number::QSTABILIZE:
