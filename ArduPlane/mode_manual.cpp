@@ -28,6 +28,7 @@ void ModeManual::update()
     
     plane.last_aileron = plane.channel_roll->get_control_in_zero_dz();
     plane.last_elevator = plane.channel_pitch->get_control_in_zero_dz();
+    plane.last_rudder = plane.channel_yaw->get_control_in_zero_dz();
     
     plane.id_input = plane.steering_control.steering = plane.steering_control.rudder = plane.channel_rudder->get_control_in_zero_dz();
 }
