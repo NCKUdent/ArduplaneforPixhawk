@@ -522,7 +522,6 @@ void Plane::stabilize()
 	if (control_mode == &mode_longitudinal)
 	{
 		stabilize_roll(speed_scaler);
-		stabilize_yaw(speed_scaler);
 		
 	    longitudinal_input();
          if (g.stick_mixing == STICK_MIXING_DIRECT || control_mode == &mode_longitudinal) {
