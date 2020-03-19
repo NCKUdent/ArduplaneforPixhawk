@@ -189,7 +189,7 @@ void Plane::stabilize_stick_mixing_direct()
         control_mode == &mode_qrtl ||
         control_mode == &mode_qacro ||
         control_mode == &mode_training ||
-        control_mode == &mode_qautotune||
+        control_mode == &mode_qautotune
        ) {
         return;
     }
