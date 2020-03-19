@@ -188,6 +188,7 @@ private:
 
     int last_aileron;
     int last_elevator;
+    int last_rudder;
     
     // main loop scheduler
     AP_Scheduler scheduler;
