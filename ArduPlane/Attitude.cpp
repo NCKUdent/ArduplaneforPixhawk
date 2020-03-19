@@ -189,7 +189,10 @@ void Plane::stabilize_stick_mixing_direct()
         control_mode == &mode_qrtl ||
         control_mode == &mode_qacro ||
         control_mode == &mode_training ||
-        control_mode == &mode_qautotune) {
+        control_mode == &mode_qautotune||
+        control_mode == &mode_longitudinal||
+        control_mode == &mode_lateral
+       ) {
         return;
     }
     int16_t aileron = SRV_Channels::get_output_scaled(SRV_Channel::k_aileron);
@@ -515,6 +518,9 @@ void Plane::stabilize()
 		//stabilize_yaw(speed_scaler);
 		//stabilize_yaw1(speed_scaler);
 		lateral_input();
+        if (g.stick_mixing == STICK_MIXING_DIRECT || control_mode == &mode_lateral) {
+            stabilize_stick_mixing_direct();
+        }
 	}
 	if (control_mode == &mode_longitudinal)
 	{
@@ -522,6 +528,9 @@ void Plane::stabilize()
 		stabilize_yaw(speed_scaler);
 		
 		longitudinal_input();
+         if (g.stick_mixing == STICK_MIXING_DIRECT || control_mode == &mode_longitudinal) {
+            stabilize_stick_mixing_direct();
+        }
 	}
     if (quadplane.in_tailsitter_vtol_transition()) {
         /*
