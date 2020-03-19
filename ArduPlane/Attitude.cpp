@@ -517,9 +517,10 @@ void Plane::stabilize()
         stabilize_pitch(speed_scaler);
 		//stabilize_yaw(speed_scaler);
 		//stabilize_yaw1(speed_scaler);
-		lateral_input();
+		
         if (g.stick_mixing == STICK_MIXING_DIRECT || control_mode == &mode_lateral) {
             stabilize_stick_mixing_direct();
+            lateral_input();
         }
 	}
 	if (control_mode == &mode_longitudinal)
@@ -527,9 +528,10 @@ void Plane::stabilize()
 		stabilize_roll(speed_scaler);
 		stabilize_yaw(speed_scaler);
 		
-		longitudinal_input();
+		
          if (g.stick_mixing == STICK_MIXING_DIRECT || control_mode == &mode_longitudinal) {
             stabilize_stick_mixing_direct();
+             longitudinal_input();
         }
 	}
     if (quadplane.in_tailsitter_vtol_transition()) {
