@@ -15,7 +15,7 @@ bool ModeLongitudinal::_enter()
 
 void ModeLongitudinal::update()
 {
-	plane.nav_roll_cd = 0;
+	//plane.nav_roll_cd = 0;
 
 	plane.count=plane.count+1;
 }
