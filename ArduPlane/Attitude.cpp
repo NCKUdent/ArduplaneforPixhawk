@@ -463,25 +463,28 @@ void Plane::longitudinal_input()//doublet input
     {
     SRV_Channels::set_output_scaled(SRV_Channel::k_elevator,channel_pitch -> zero()+plane.last_elevator);
     SRV_Channels::set_output_scaled(SRV_Channel::k_aileron,channel_roll -> zero()+plane.last_aileron);
+    SRV_Channels::set_output_scaled(SRV_Channel::k_rudder,channel_rudder -> zero()+plane.last_rudder);
     }
 	
 	else if (plane.count<100)
     {
 	SRV_Channels::set_output_scaled(SRV_Channel::k_elevator,channel_pitch -> abc()+plane.last_elevator);
     SRV_Channels::set_output_scaled(SRV_Channel::k_aileron,channel_roll -> zero()+plane.last_aileron);
+    SRV_Channels::set_output_scaled(SRV_Channel::k_rudder,channel_rudder -> zero()+plane.last_rudder);
     }
 	
     else if (plane.count<150)
     {
 	SRV_Channels::set_output_scaled(SRV_Channel::k_elevator,channel_pitch -> def()+plane.last_elevator);
     SRV_Channels::set_output_scaled(SRV_Channel::k_aileron,channel_roll -> zero()+plane.last_aileron);
+    SRV_Channels::set_output_scaled(SRV_Channel::k_rudder,channel_rudder -> zero()+plane.last_rudder);
     }
 	
     else
     {
 	SRV_Channels::set_output_scaled(SRV_Channel::k_elevator,channel_pitch -> zero()+plane.last_elevator);
     SRV_Channels::set_output_scaled(SRV_Channel::k_aileron,channel_roll -> zero()+plane.last_aileron);
-
+    SRV_Channels::set_output_scaled(SRV_Channel::k_rudder,channel_rudder -> zero()+plane.last_rudder);
     }
 
 }
