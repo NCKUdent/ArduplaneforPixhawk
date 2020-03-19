@@ -316,20 +316,20 @@ int32_t AP_PitchController::get_servo_out(int32_t angle_err, float scaler, bool 
 	// limit the maximum pitch rate demand. Don't apply when inverted
 	// as the rates will be tuned when upright, and it is common that
 	// much higher rates are needed inverted	
-	//if (!inverted) {
-	//	if (_max_rate_neg && desired_rate < -_max_rate_neg) {
-	//		desired_rate = -_max_rate_neg;
-	//	} else if (gains.rmax && desired_rate > gains.rmax) {
-	//		desired_rate = gains.rmax;
-	//	}
-	//}
-	//
-	//if (inverted) {
-	//	desired_rate = -desired_rate;
-	//}
+    if (!inverted) {
+		if (_max_rate_neg && desired_rate < -_max_rate_neg) {
+			desired_rate = -_max_rate_neg;
+		} else if (gains.rmax && desired_rate > gains.rmax) {
+			desired_rate = gains.rmax;
+		}
+	}
+	
+	if (inverted) {
+		desired_rate = -desired_rate;
+	}
 
 	// Apply the turn correction offset
-	desired_rate = desired_rate + rate_offset - rate_offset;
+	desired_rate = desired_rate + rate_offset;
 
     return _get_rate_out(desired_rate, scaler, disable_integrator, aspeed);
 }
