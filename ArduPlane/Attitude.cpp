@@ -477,18 +477,13 @@ void Plane::longitudinal_input()//doublet input
     SRV_Channels::set_output_scaled(SRV_Channel::k_aileron,channel_roll -> zero()+plane.last_aileron);
     }
 	
-    else if (plane.count<200)
+    else
     {
 	SRV_Channels::set_output_scaled(SRV_Channel::k_elevator,channel_pitch -> zero()+plane.last_elevator);
     SRV_Channels::set_output_scaled(SRV_Channel::k_aileron,channel_roll -> zero()+plane.last_aileron);
 
     }
-    
-	else
-    {
-    SRV_Channels::set_output_scaled(SRV_Channel::k_aileron,channel_roll -> zero()+plane.last_aileron);
 
-    }
 }
 
 /*
