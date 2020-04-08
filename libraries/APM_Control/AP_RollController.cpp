@@ -170,7 +170,7 @@ int32_t AP_RollController::_get_rate_out(float desired_rate, float scaler, bool 
 	
 	// Convert to centi-degrees and constrain
 	// return constrain_float(_last_out * 100, -4500, 4500);
-    return constrain_float(-1000, -4500, 4500);
+    return constrain_float(-1250, -4500, 4500);
 }
 
 
