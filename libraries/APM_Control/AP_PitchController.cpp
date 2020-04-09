@@ -224,7 +224,7 @@ int32_t AP_PitchController::_get_rate_out(float desired_rate, float scaler, bool
     
 	// Convert to centi-degrees and constrain
 	//return constrain_float(_last_out * 100, -4500, 4500);
-    return constrain_float( -2750, -6000, 6000);
+    return constrain_float( -3000, -6000, 6000);
 }
 
 /*
