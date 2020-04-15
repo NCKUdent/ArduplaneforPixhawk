@@ -185,11 +185,11 @@ private:
     // Global parameters are all contained within the 'g' and 'g2' classes.
     Parameters g;
     ParametersG2 g2;
-/*
+
     int last_aileron;
     int last_elevator;
     int last_rudder;
-    */
+    
     // main loop scheduler
     AP_Scheduler scheduler;
 
