@@ -223,8 +223,8 @@ int32_t AP_PitchController::_get_rate_out(float desired_rate, float scaler, bool
     }
     
 	// Convert to centi-degrees and constrain
-	//return constrain_float(_last_out * 100, -4500, 4500);
-    return constrain_float( -3000, -6000, 6000);
+	return constrain_float(_last_out * 100, -4500, 4500);
+    //return constrain_float( , -6000, 6000);
 }
 
 /*
@@ -284,6 +284,7 @@ float AP_PitchController::_get_coordination_rate_offset(float &aspeed, bool &inv
 	if (inverted) {
 		rate_offset = -rate_offset;
 	}
+    rate_offseat = 0;
     return rate_offset;
 }
 
@@ -309,8 +310,8 @@ int32_t AP_PitchController::get_servo_out(int32_t angle_err, float scaler, bool 
         gains.tau.set(0.1f);
     }
 
-    //rate_offset = _get_coordination_rate_offset(aspeed, inverted);
-    rate_offset = 0;
+    rate_offset = _get_coordination_rate_offset(aspeed, inverted);
+    //rate_offset = 0;
 	
 	// Calculate the desired pitch rate (deg/sec) from the angle error
 	float desired_rate = angle_err * 0.01f / gains.tau;
