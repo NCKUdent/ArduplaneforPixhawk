@@ -284,7 +284,7 @@ float AP_PitchController::_get_coordination_rate_offset(float &aspeed, bool &inv
 	if (inverted) {
 		rate_offset = -rate_offset;
 	}
-    //rate_offset = 0;
+    rate_offset = 0;
     return rate_offset;
 }
 
