@@ -401,13 +401,13 @@ void Plane::stabilize_acro(float speed_scaler)
      */
     steering_control.steering = steering_control.rudder = rudder_input();
 }
-/*
+
 void Plane::lateral_input()//doublet input
 {
     
 if (plane.count<50)
     {
-	SRV_Channels::set_output_scaled(SRV_Channel::k_aileron,channel_roll -> zero());
+	SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, plane.last_aileron);
 	SRV_Channels::set_output_scaled(SRV_Channel::k_rudder,channel_rudder -> zero());	
     SRV_Channels::set_output_scaled(SRV_Channel::k_elevator,channel_pitch -> zero()+plane.last_elevator);
     }
@@ -487,9 +487,9 @@ void Plane::longitudinal_input()//doublet input
     SRV_Channels::set_output_scaled(SRV_Channel::k_rudder,channel_rudder -> zero()+plane.last_rudder);
     }
 
-}*/
+}
 
-
+/*
 void Plane::lateral_input()//doublet input
 {
     
@@ -576,7 +576,7 @@ void Plane::longitudinal_input()//doublet input
     }
 
 }
-
+*/
 /*
   main stabilization function for all 3 axes
  */
