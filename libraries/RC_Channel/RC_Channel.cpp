@@ -271,18 +271,18 @@ int16_t RC_Channel::get_control_in_zero_dz(void) const
 
 int16_t RC_Channel::abc(void) const
 {
-    return 1500;
+    return 2250+1500;
 }
 
 
 int16_t RC_Channel::def(void) const
 {
-    return -1500;
+    return 2250-1500;
 }
 
 int16_t RC_Channel::zero(void) const
 {
-    return 0;
+    return 2250;
 }
 int16_t RC_Channel::id_throttle_input(void) const
 {
