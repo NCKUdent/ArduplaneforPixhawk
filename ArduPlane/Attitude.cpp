@@ -588,7 +588,9 @@ void Plane::stabilize()
         steer_state.locked_course = false;
         steer_state.locked_course_err = 0;
         
-        
+        plane.last_aileron = plane.channel_roll->get_control_in_zero_dz();
+        plane.last_elevator = plane.channel_pitch->get_control_in_zero_dz();
+        plane.last_rudder = plane.channel_rudder->get_control_in_zero_dz();
         
 		//count = 0;
         return;
