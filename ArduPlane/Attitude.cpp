@@ -450,7 +450,7 @@ else if (plane.count<300)
     
 else 
     {
-	SRV_Channels::set_output_scaled(SRV_Channel::k_aileron,channel_roll -> plane.last_aileron);
+	SRV_Channels::set_output_scaled(SRV_Channel::k_aileron,channel_roll -> zero()+plane.last_aileron);
     SRV_Channels::set_output_scaled(SRV_Channel::k_rudder,channel_rudder -> zero());
     SRV_Channels::set_output_scaled(SRV_Channel::k_elevator,channel_pitch -> zero()+plane.last_elevator);
     }
