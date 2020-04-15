@@ -401,7 +401,7 @@ void Plane::stabilize_acro(float speed_scaler)
      */
     steering_control.steering = steering_control.rudder = rudder_input();
 }
-
+/*
 void Plane::lateral_input()//doublet input
 {
     
@@ -488,8 +488,8 @@ void Plane::longitudinal_input()//doublet input
     }
 
 }
+*/
 
-/*
 void Plane::lateral_input()//doublet input
 {
     
@@ -576,7 +576,7 @@ void Plane::longitudinal_input()//doublet input
     }
 
 }
-*/
+
 /*
   main stabilization function for all 3 axes
  */
