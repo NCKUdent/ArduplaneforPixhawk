@@ -277,7 +277,7 @@ int16_t RC_Channel::abc(void) const
 
 int16_t RC_Channel::def(void) const
 {
-    return 1500;
+    return -1500;
 }
 
 int16_t RC_Channel::zero(void) const
