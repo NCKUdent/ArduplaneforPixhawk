@@ -503,7 +503,7 @@ void Plane::stabilize()
     float speed_scaler = get_speed_scaler();
 	if (control_mode == &mode_lateral) {
             stabilize_pitch(speed_scaler);
-            stabilize_stick_mixing_direct();
+            stabilize_stick_mixing_fbw();
             //stabilize_acro(speed_scaler);
 		    //stabilize_roll(speed_scaler);
             //stabilize_yaw(speed_scaler);
@@ -545,7 +545,7 @@ void Plane::stabilize()
     last_stabilize_ms = now;
    
     if (control_mode == &mode_lateral) {
-            stabilize_stick_mixing_direct();
+            stabilize_stick_mixing_fbw();
     } else if (control_mode == &mode_longitudinal) {
             stabilize_stick_mixing_direct();
     } else if (control_mode == &mode_training) {
