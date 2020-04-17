@@ -14,7 +14,7 @@ void ModeLateral::update()
 {
     plane.nav_pitch_cd =0 ;
 	plane.count=plane.count+1;
- /*
+ 
 if (plane.count<50)
 {
 		
@@ -37,5 +37,5 @@ else if (plane.count<200)
 	plane.steering_control.steering = plane.steering_control.rudder = 0;
 	
 }
-*/
+
 }
