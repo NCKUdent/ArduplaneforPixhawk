@@ -514,7 +514,7 @@ void Plane::stabilize()
 		    //lateral_input();
                  if (g.stick_mixing == STICK_MIXING_DIRECT || control_mode == &mode_lateral) {
                      stabilize_pitch(speed_scaler);
-                     stabilize_stick_mixing_direct();
+                     stabilize_stick_mixing_fbw();
                      }
         //}
     }
