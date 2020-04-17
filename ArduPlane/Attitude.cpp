@@ -412,7 +412,8 @@ if (plane.count<50)
     //SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, channel_roll->get_control_in_zero_dz());
     //SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, channel_roll->get_control_in());
     //channel_roll->get_control_in_zero_dz();
-    channel_roll->zero();
+    channel_roll->get_control_in();
+    //channel_roll->zero();
     }
     
 else if (plane.count<100)
