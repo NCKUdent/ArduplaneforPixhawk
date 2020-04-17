@@ -583,7 +583,6 @@ void Plane::lateral_input()//doublet input
     
 if (plane.count<50)
     {
-	channel_roll->servo_out = 0;
     //SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, 250);
 	SRV_Channels::set_output_scaled(SRV_Channel::k_rudder,channel_rudder -> zero());	
     //SRV_Channels::set_output_scaled(SRV_Channel::k_elevator,channel_pitch -> zero());
