@@ -729,7 +729,9 @@ void Plane::set_servos(void)
 
     if (control_mode == &mode_manual) {
         set_servos_manual_passthrough();
-    } else {
+    } else if (control_mode == &mode_lateral) {
+		set_servos_manual_passthrough();
+	} else {
         set_servos_controlled();
     }
 
