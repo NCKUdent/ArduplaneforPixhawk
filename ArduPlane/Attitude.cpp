@@ -412,7 +412,7 @@ if (plane.count<50)
     //SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, channel_roll->get_control_in_zero_dz());
     //SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, channel_roll->get_control_in());
     //channel_roll->get_control_in_zero_dz();
-    channel_roll->get_control_in();
+    //channel_roll->get_control_in();
     //channel_roll->zero();
     }
     
@@ -548,10 +548,14 @@ void Plane::stabilize()
     last_stabilize_ms = now;
     
     if (control_mode == &mode_lateral) {
-
+        if (g.stick_mixing == STICK_MIXING_DIRECT || control_mode == &mode_lateral) {
+            stabilize_stick_mixing_direct();
+        }
     }
 	else  if (control_mode == &mode_longitudinal) {
-
+        if (g.stick_mixing == STICK_MIXING_DIRECT || control_mode == &mode_longitudinal) {
+            stabilize_stick_mixing_direct();
+        }
     }
     else if (control_mode == &mode_training) {
         stabilize_training(speed_scaler);
