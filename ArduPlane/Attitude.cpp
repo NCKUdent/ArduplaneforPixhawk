@@ -502,17 +502,17 @@ void Plane::stabilize()
     }
     float speed_scaler = get_speed_scaler();
 	if (control_mode == &mode_lateral) {
-        if (g.stick_mixing == STICK_MIXING_DIRECT || control_mode == &mode_lateral) {
+       /* if (g.stick_mixing == STICK_MIXING_DIRECT || control_mode == &mode_lateral) {
             stabilize_pitch(speed_scaler);
             stabilize_stick_mixing_direct();
-        } else {
+        } else {*/
             //stabilize_acro(speed_scaler);
 		    //stabilize_roll(speed_scaler);
             //stabilize_yaw(speed_scaler);
 		    //stabilize_yaw1(speed_scaler);
             stabilize_pitch(speed_scaler);
 		    lateral_input();
-        }
+        //}
     }
 	if (control_mode == &mode_longitudinal)
 	{
