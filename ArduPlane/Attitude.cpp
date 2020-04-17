@@ -402,7 +402,7 @@ void Plane::stabilize_acro(float speed_scaler)
     steering_control.steering = steering_control.rudder = rudder_input();
 }
 
-
+/*
 void Plane::lateral_input()//doublet input
 {
     
@@ -447,7 +447,7 @@ else
     {
     }
 }
-
+*/
 
 void Plane::longitudinal_input()//doublet input
 {
@@ -511,7 +511,7 @@ void Plane::stabilize()
             //stabilize_yaw(speed_scaler);
 		    //stabilize_yaw1(speed_scaler);
             stabilize_pitch(speed_scaler);
-		    lateral_input();
+		    //lateral_input();
                  if (g.stick_mixing == STICK_MIXING_DIRECT || control_mode == &mode_lateral) {
                      stabilize_pitch(speed_scaler);
                      stabilize_stick_mixing_direct();
