@@ -546,7 +546,7 @@ void Plane::stabilize()
         steer_state.locked_course_err = 0;
     }
     last_stabilize_ms = now;
-    /*
+   
     if (control_mode == &mode_lateral) {
         if (g.stick_mixing == STICK_MIXING_DIRECT || control_mode == &mode_lateral) {
             stabilize_stick_mixing_direct();
@@ -555,9 +555,7 @@ void Plane::stabilize()
         if (g.stick_mixing == STICK_MIXING_DIRECT || control_mode == &mode_longitudinal) {
             stabilize_stick_mixing_direct();
         }
-    } else */
-    
-    if (control_mode == &mode_training) {
+    } else if (control_mode == &mode_training) {
         stabilize_training(speed_scaler);
     } else if (control_mode == &mode_acro) {
         stabilize_acro(speed_scaler);
