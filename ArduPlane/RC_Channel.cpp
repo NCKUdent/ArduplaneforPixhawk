@@ -65,6 +65,8 @@ void RC_Channel_Plane::init_aux_function(const RC_Channel::aux_func_t ch_option,
     case AUX_FUNC::GUIDED:
     case AUX_FUNC::INVERTED:
     case AUX_FUNC::MANUAL:
+    case AUX_FUNC::LATERAL:
+	case AUX_FUNC::LONGITUDINAL:
     case AUX_FUNC::RTL:
     case AUX_FUNC::TAKEOFF:
         break;
