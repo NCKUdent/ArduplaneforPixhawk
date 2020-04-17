@@ -429,6 +429,7 @@ else if (plane.count<150)
 
 else if (plane.count<200)
     {
+    
     }
     
 else if (plane.count<250)
@@ -506,6 +507,7 @@ void Plane::stabilize()
             //steer_state.locked_course = false;
             //steer_state.locked_course_err = 0;
             SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, plane.channel_roll->get_control_in_zero_dz());
+            SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, plane.channel_pitch->get_control_in_zero_dz());
             stabilize_pitch(speed_scaler);
             //stabilize_stick_mixing_direct();
             //stabilize_acro(speed_scaler);
@@ -549,11 +551,12 @@ void Plane::stabilize()
     }
     last_stabilize_ms = now;
    
-    if (control_mode == &mode_lateral) {
-            stabilize_stick_mixing_fbw();
+   /* if (control_mode == &mode_lateral) {
+            stabilize_stick_mixing_direct();
     } else if (control_mode == &mode_longitudinal) {
             stabilize_stick_mixing_direct();
-    } else if (control_mode == &mode_training) {
+    } else*/
+    if (control_mode == &mode_training) {
         stabilize_training(speed_scaler);
     } else if (control_mode == &mode_acro) {
         stabilize_acro(speed_scaler);
