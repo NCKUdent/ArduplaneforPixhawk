@@ -516,6 +516,7 @@ void Plane::stabilize()
                      stabilize_pitch(speed_scaler);
                      stabilize_stick_mixing_fbw();
                      }
+        return;
         //}
     }
 	if (control_mode == &mode_longitudinal)
