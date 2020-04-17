@@ -121,7 +121,12 @@ void RC_Channel_Plane::do_aux_function(const aux_func_t ch_option, const aux_swi
     case AUX_FUNC::MANUAL:
         do_aux_function_change_mode(Mode::Number::MANUAL, ch_flag);
         break;
-
+    case AUX_FUNC::LATERAL:
+        do_aux_function_change_mode(Mode::Number::MANUAL, ch_flag);
+        break;
+    case AUX_FUNC::LONGITUDINAL:
+        do_aux_function_change_mode(Mode::Number::MANUAL, ch_flag);
+        break;
     case AUX_FUNC::RTL:
         do_aux_function_change_mode(Mode::Number::RTL, ch_flag);
         break;
