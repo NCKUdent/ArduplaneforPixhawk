@@ -512,8 +512,6 @@ void Plane::stabilize()
 		    //stabilize_yaw1(speed_scaler);
             stabilize_pitch(speed_scaler);
 		    //lateral_input();
-            stabilize_stick_mixing_fbw();
-        return;
         //}
     }
 	if (control_mode == &mode_longitudinal)
@@ -549,16 +547,15 @@ void Plane::stabilize()
     }
     last_stabilize_ms = now;
    
-    /*if (control_mode == &mode_lateral) {
+    if (control_mode == &mode_lateral) {
         if (g.stick_mixing == STICK_MIXING_DIRECT || control_mode == &mode_lateral) {
             stabilize_stick_mixing_direct();
         }
-    } else  if (control_mode == &mode_longitudinal) {
+    } else if (control_mode == &mode_longitudinal) {
         if (g.stick_mixing == STICK_MIXING_DIRECT || control_mode == &mode_longitudinal) {
             stabilize_stick_mixing_direct();
         }
-    } else */
-    if (control_mode == &mode_training) {
+    } else if (control_mode == &mode_training) {
         stabilize_training(speed_scaler);
     } else if (control_mode == &mode_acro) {
         stabilize_acro(speed_scaler);
