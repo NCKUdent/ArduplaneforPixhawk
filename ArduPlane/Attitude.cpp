@@ -502,6 +502,8 @@ void Plane::stabilize()
     }
     float speed_scaler = get_speed_scaler();
 	if (control_mode == &mode_lateral) {
+            steer_state.locked_course = false;
+            steer_state.locked_course_err = 0;
             stabilize_pitch(speed_scaler);
             stabilize_stick_mixing_fbw();
             //stabilize_acro(speed_scaler);
@@ -510,6 +512,7 @@ void Plane::stabilize()
 		    //stabilize_yaw1(speed_scaler);
 		    //lateral_input();
         //}
+        return;
     }
 	if (control_mode == &mode_longitudinal)
 	{
