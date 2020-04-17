@@ -505,7 +505,7 @@ void Plane::stabilize()
             steer_state.locked_course = false;
             steer_state.locked_course_err = 0;
             stabilize_pitch(speed_scaler);
-            stabilize_stick_mixing_fbw();
+            //stabilize_stick_mixing_direct();
             //stabilize_acro(speed_scaler);
 		    //stabilize_roll(speed_scaler);
             //stabilize_yaw(speed_scaler);
