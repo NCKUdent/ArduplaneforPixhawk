@@ -409,7 +409,7 @@ void Plane::lateral_input()//doublet input
 if (plane.count<50)
     {
     //SRV_Channels::set_output_pwm(SRV_Channel::k_aileron, RC_Channels::rc_channel(channel_roll)->get_radio_in());
-    //SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, channel_roll->get_control_in_zero_dz());
+    SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, channel_roll->get_control_in_zero_dz());
     //SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, channel_roll->get_control_in());
     //channel_roll->get_control_in_zero_dz();
     //channel_roll->get_control_in();
