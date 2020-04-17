@@ -893,9 +893,6 @@ void Plane::servos_auto_trim(void)
         // only when definitely moving
         return;
     }
-    if (control_mode == &mode_lateral) {
-        return;
-    }
 
     // adjust trim on channels by a small amount according to I value
     float roll_I = rollController.get_pid_info().I;
