@@ -12,6 +12,10 @@ bool ModeLateral::_enter()
 
 void ModeLateral::update()
 {
+    if (g.stick_mixing == STICK_MIXING_DIRECT || control_mode == &mode_lateral) {
+                     stabilize_pitch(speed_scaler);
+                     stabilize_stick_mixing_fbw();
+                     }
     plane.nav_pitch_cd =0 ;
 	plane.count=plane.count+1;
  /*
