@@ -492,28 +492,28 @@ void Plane::stabilize()
         // reset steering controls
         steer_state.locked_course = false;
         steer_state.locked_course_err = 0;
-        
+        /*
         plane.last_aileron = plane.channel_roll->get_control_in_zero_dz();
         plane.last_elevator = plane.channel_pitch->get_control_in_zero_dz();
         plane.last_rudder = plane.channel_rudder->get_control_in_zero_dz();
-        
+        */
 		//count = 0;
         return;
     }
     float speed_scaler = get_speed_scaler();
-	if (control_mode == &mode_lateral) 
-	{
-		//stabilize_acro(speed_scaler);
-		//stabilize_roll(speed_scaler);
-        stabilize_pitch(speed_scaler);
-		//stabilize_yaw(speed_scaler);
-		//stabilize_yaw1(speed_scaler);
-		lateral_input();
+	if (control_mode == &mode_lateral) {
         if (g.stick_mixing == STICK_MIXING_DIRECT || control_mode == &mode_lateral) {
+            stabilize_pitch(speed_scaler);
             stabilize_stick_mixing_direct();
-
+        } else {
+            //stabilize_acro(speed_scaler);
+		    //stabilize_roll(speed_scaler);
+            //stabilize_yaw(speed_scaler);
+		    //stabilize_yaw1(speed_scaler);
+            stabilize_pitch(speed_scaler);
+		    lateral_input();
         }
-	}
+    }
 	if (control_mode == &mode_longitudinal)
 	{
 		stabilize_roll(speed_scaler);
@@ -546,24 +546,22 @@ void Plane::stabilize()
         steer_state.locked_course_err = 0;
     }
     last_stabilize_ms = now;
-    
+    /*
     if (control_mode == &mode_lateral) {
         if (g.stick_mixing == STICK_MIXING_DIRECT || control_mode == &mode_lateral) {
             stabilize_stick_mixing_direct();
         }
-    }
-	else  if (control_mode == &mode_longitudinal) {
+    } else  if (control_mode == &mode_longitudinal) {
         if (g.stick_mixing == STICK_MIXING_DIRECT || control_mode == &mode_longitudinal) {
             stabilize_stick_mixing_direct();
         }
-    }
-    else if (control_mode == &mode_training) {
+    } else */
+    
+    if (control_mode == &mode_training) {
         stabilize_training(speed_scaler);
     } else if (control_mode == &mode_acro) {
         stabilize_acro(speed_scaler);
-        
-    }
-    else if ((control_mode == &mode_qstabilize ||
+    } else if ((control_mode == &mode_qstabilize ||
                 control_mode == &mode_qhover ||
                 control_mode == &mode_qloiter ||
                 control_mode == &mode_qland ||
