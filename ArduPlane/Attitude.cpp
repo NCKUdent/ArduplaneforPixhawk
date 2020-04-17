@@ -402,18 +402,19 @@ void Plane::stabilize_acro(float speed_scaler)
     steering_control.steering = steering_control.rudder = rudder_input();
 }
 
-/*
+
 void Plane::lateral_input()//doublet input
 {
     
 if (plane.count<50)
     {
     //SRV_Channels::set_output_pwm(SRV_Channel::k_aileron, RC_Channels::rc_channel(channel_roll)->get_radio_in());
-    SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, plane.channel_roll->get_control_in_zero_dz());
+    //SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, plane.channel_roll->get_control_in_zero_dz());
     //SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, channel_roll->get_control_in());
     //channel_roll->get_control_in_zero_dz();
     //channel_roll->get_control_in();
     //channel_roll->zero();
+    SRV_Channels::set_output_scaled(SRV_Channel::k_rudder,channel_rudder -> zero());		
     }
     
 else if (plane.count<100)
@@ -447,7 +448,7 @@ else
     {
     }
 }
-*/
+
 
 void Plane::longitudinal_input()//doublet input
 {
@@ -502,15 +503,16 @@ void Plane::stabilize()
     }
     float speed_scaler = get_speed_scaler();
 	if (control_mode == &mode_lateral) {
-            steer_state.locked_course = false;
-            steer_state.locked_course_err = 0;
+            //steer_state.locked_course = false;
+            //steer_state.locked_course_err = 0;
+            SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, plane.channel_roll->get_control_in_zero_dz());
             stabilize_pitch(speed_scaler);
             //stabilize_stick_mixing_direct();
             //stabilize_acro(speed_scaler);
 		    //stabilize_roll(speed_scaler);
             //stabilize_yaw(speed_scaler);
 		    //stabilize_yaw1(speed_scaler);
-		    //lateral_input();
+		    lateral_input();
         //}
         return;
     }
