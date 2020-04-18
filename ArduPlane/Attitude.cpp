@@ -420,7 +420,7 @@ void Plane::lateral_input(float speed_scaler)//doublet input
         disable_integrator = true;
     }
     
-    if (!channel_pitch->in_trim_dz() ||!channel_roll->in_trim_dz()) {
+    if (channel_pitch->percent_input() > 31 ||channel_roll->percent_input() > 31 ) {
         SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, plane.channel_roll->get_control_in_zero_dz());
         SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, plane.channel_pitch->get_control_in_zero_dz());
     } else {
