@@ -403,7 +403,7 @@ void Plane::stabilize_acro(float speed_scaler)
 }
 
 
-void Plane::lateral_input()//doublet input
+void Plane::lateral_input(float speed_scaler)//doublet input
 {
     int8_t force_elevator = takeoff_tail_hold();
     if (force_elevator != 0) {
@@ -429,7 +429,7 @@ if (plane.count<50)
     SRV_Channels::set_output_scaled(SRV_Channel::k_rudder, (channel_rudder -> zero() + 
                                                             channel_rudder ->  get_control_in_zero_dz() +
                                                             pitchController.get_servo_out(demanded_pitch - ahrs.pitch_sensor, 
-                                                                                     plane.speed_scaler, 
+                                                                                     speed_scaler, 
                                                                                      disable_integrator));		
     }
     
@@ -528,7 +528,7 @@ void Plane::stabilize()
             SRV_Channels::set_output_scaled(SRV_Channel::k_rudder, plane.channel_rudder->get_control_in_zero_dz());
             */
         
-            lateral_input();
+            lateral_input(speed_scaler);
         
             //SRV_Channels::set_output_scaled(SRV_Channel::k_rudder, plane.channel_rudder->get_control_in_zero_dz());
             //stabilize_pitch(speed_scaler);
