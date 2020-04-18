@@ -32,5 +32,5 @@ else if (plane.count<200) {
 }
 else {
     plane.steering_control.steering = plane.steering_control.rudder = plane.channel_rudder->get_control_in_zero_dz();
-
+}
 }
