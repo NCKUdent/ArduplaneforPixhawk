@@ -430,7 +430,7 @@ if (plane.count<50)
                                                             channel_rudder ->  get_control_in_zero_dz() +
                                                             pitchController.get_servo_out(demanded_pitch - ahrs.pitch_sensor, 
                                                                                      speed_scaler, 
-                                                                                     disable_integrator));		
+                                                                                     disable_integrator)));		
     }
     
 else if (plane.count<100)
