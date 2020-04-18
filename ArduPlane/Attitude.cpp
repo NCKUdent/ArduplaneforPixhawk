@@ -556,7 +556,7 @@ void Plane::stabilize()
     last_stabilize_ms = now;
    
    if (control_mode == &mode_lateral) {
-            stabilize_stick_mixing_direct();
+            stabilize_stick_mixing_();
     } else if (control_mode == &mode_longitudinal) {
             stabilize_stick_mixing_direct();
     } else if (control_mode == &mode_training) {
