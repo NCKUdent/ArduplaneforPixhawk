@@ -412,119 +412,120 @@ void Plane::lateral_input(float speed_scaler)//doublet input
         SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, 45*force_elevator);
         return;
     }
+    
     int32_t demanded_pitch = nav_pitch_cd + g.pitch_trim_cd + SRV_Channels::get_output_scaled(SRV_Channel::k_throttle) * g.kff_throttle_to_pitch;
     bool disable_integrator = false;
-    if (control_mode == &mode_stabilize && channel_pitch->get_control_in() != 0) {
+   
+    if (channel_pitch->get_control_in() != 0) {
         disable_integrator = true;
     }
     
-if (plane.count<50)
-    {
-    //SRV_Channels::set_output_pwm(SRV_Channel::k_aileron, RC_Channels::rc_channel(channel_roll)->get_radio_in());
-    //SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, plane.channel_roll->get_control_in_zero_dz());
-    //SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, channel_roll->get_control_in());
-    //channel_roll->get_control_in_zero_dz();
-    //channel_roll->get_control_in();
-    //channel_roll->zero();
-    SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, (channel_roll-> zero() + 
-                                                             channel_roll-> get_control_in_zero_dz()));
-    SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, (channel_pitch-> get_control_in_zero_dz() + 
-                                                              pitchController.get_servo_out(demanded_pitch - ahrs.pitch_sensor, 
-                                                                                           speed_scaler, 
-                                                                                           disable_integrator)));
-    }
-    
-else if (plane.count<100)
-    {
-    SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, (channel_roll-> zero() + 
-                                                             channel_roll-> get_control_in_zero_dz()));
-    SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, (channel_pitch-> get_control_in_zero_dz() + 
-                                                              pitchController.get_servo_out(demanded_pitch - ahrs.pitch_sensor, 
-                                                                                           speed_scaler, 
-                                                                                           disable_integrator)));
-    }
-    
-else if (plane.count<150)
-    {
-    SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, (channel_roll-> zero() + 
-                                                             channel_roll-> get_control_in_zero_dz()));
-    SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, (channel_pitch-> get_control_in_zero_dz() + 
-                                                              pitchController.get_servo_out(demanded_pitch - ahrs.pitch_sensor, 
-                                                                                           speed_scaler, 
-                                                                                           disable_integrator)));    }
-
-else if (plane.count<200)
-    {
-    SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, (channel_roll-> zero() + 
-                                                             channel_roll-> get_control_in_zero_dz()));
-    SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, (channel_pitch-> get_control_in_zero_dz() + 
-                                                              pitchController.get_servo_out(demanded_pitch - ahrs.pitch_sensor, 
-                                                                                           speed_scaler, 
-                                                                                           disable_integrator)));
-    }
-    
-else if (plane.count<250)
-    {
-    SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, (channel_roll-> abc() + 
-                                                             channel_roll-> get_control_in_zero_dz()));
-    SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, (channel_pitch-> get_control_in_zero_dz() + 
-                                                              pitchController.get_servo_out(demanded_pitch - ahrs.pitch_sensor, 
-                                                                                           speed_scaler, 
-                                                                                           disable_integrator)));
-    }
-	
-else if (plane.count<300)
-    {
-    SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, (channel_roll-> def() + 
-                                                             channel_roll-> get_control_in_zero_dz()));
-    SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, (channel_pitch-> get_control_in_zero_dz() + 
-                                                              pitchController.get_servo_out(demanded_pitch - ahrs.pitch_sensor, 
-                                                                                           speed_scaler, 
-                                                                                           disable_integrator)));
-    }
-    
-else 
-    {
-    SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, (channel_roll-> zero() + 
-                                                             channel_roll-> get_control_in_zero_dz()));
-    SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, (channel_pitch-> get_control_in_zero_dz() + 
-                                                              pitchController.get_servo_out(demanded_pitch - ahrs.pitch_sensor, 
-                                                                                           speed_scaler, 
-                                                                                           disable_integrator)));
+    if (channel_pitch->get_control_in() != 0 || channel_roll->get_control_in() != 0) {
+        SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, plane.channel_roll->get_control_in_zero_dz());
+        SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, plane.channel_pitch->get_control_in_zero_dz());
+    } else {
+        if (plane.count<50) {
+                SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, (channel_roll-> zero() + 
+                                                                         channel_roll-> get_control_in_zero_dz()));
+                SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, (channel_pitch-> get_control_in_zero_dz() + 
+                                                                          pitchController.get_servo_out(demanded_pitch - ahrs.pitch_sensor, 
+                                                                                                        speed_scaler, 
+                                                                                                        disable_integrator)));
+                //SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, (channel_pitch-> get_control_in_zero_dz()));
+        } else if (plane.count<100) {
+                SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, (channel_roll-> zero() + 
+                                                                         channel_roll-> get_control_in_zero_dz()));
+                SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, (channel_pitch-> get_control_in_zero_dz() + 
+                                                                          pitchController.get_servo_out(demanded_pitch - ahrs.pitch_sensor, 
+                                                                                                        speed_scaler, 
+                                                                                                        disable_integrator)));
+                //SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, (channel_pitch-> get_control_in_zero_dz()));
+        } else if (plane.count<150) {
+                SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, (channel_roll-> zero() + 
+                                                                         channel_roll-> get_control_in_zero_dz()));
+                SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, (channel_pitch-> get_control_in_zero_dz() + 
+                                                                          pitchController.get_servo_out(demanded_pitch - ahrs.pitch_sensor, 
+                                                                                                        speed_scaler, 
+                                                                                                        disable_integrator)));
+                //SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, (channel_pitch-> get_control_in_zero_dz()));
+        } else if (plane.count<200) {
+                SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, (channel_roll-> zero() + 
+                                                                         channel_roll-> get_control_in_zero_dz()));
+                SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, (channel_pitch-> get_control_in_zero_dz() + 
+                                                                          pitchController.get_servo_out(demanded_pitch - ahrs.pitch_sensor, 
+                                                                                                        speed_scaler, 
+                                                                                                        disable_integrator)));
+                //SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, (channel_pitch-> get_control_in_zero_dz()));
+        } else if (plane.count<250) {
+                SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, (channel_roll-> abc() + 
+                                                                         channel_roll-> get_control_in_zero_dz()));
+                SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, (channel_pitch-> get_control_in_zero_dz() + 
+                                                                          pitchController.get_servo_out(demanded_pitch - ahrs.pitch_sensor, 
+                                                                                                        speed_scaler, 
+                                                                                                        disable_integrator)));
+                //SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, (channel_pitch-> get_control_in_zero_dz()));
+        } else if (plane.count<300) {
+                SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, (channel_roll-> def() + 
+                                                                         channel_roll-> get_control_in_zero_dz()));
+                SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, (channel_pitch-> get_control_in_zero_dz() + 
+                                                                          pitchController.get_servo_out(demanded_pitch - ahrs.pitch_sensor, 
+                                                                                                        speed_scaler, 
+                                                                                                        disable_integrator)));
+                //SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, (channel_pitch-> get_control_in_zero_dz()));
+        } else {
+                SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, (channel_roll-> zero() + 
+                                                                         channel_roll-> get_control_in_zero_dz()));
+                SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, (channel_pitch-> get_control_in_zero_dz() + 
+                                                                          pitchController.get_servo_out(demanded_pitch - ahrs.pitch_sensor, 
+                                                                                                        speed_scaler, 
+                                                                                                        disable_integrator)));
+                //SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, (channel_pitch-> get_control_in_zero_dz()));
+        }
     }
 }
 
 
-void Plane::longitudinal_input()//doublet input
+void Plane::longitudinal_input(float speed scaler)//doublet input
 {
-    if (plane.count<50)
-    {
-    SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, 225);
-    //SRV_Channels::set_output_scaled(SRV_Channel::k_aileron,channel_roll -> zero());
-    //SRV_Channels::set_output_scaled(SRV_Channel::k_rudder,channel_rudder -> zero());
+    bool disable_integrator = false;
+    if (channel_pitch->get_control_in() != 0) {
+        disable_integrator = true;
     }
-	
-	else if (plane.count<100)
-    {
-	SRV_Channels::set_output_scaled(SRV_Channel::k_elevator,channel_pitch -> def() + 225);
-    //SRV_Channels::set_output_scaled(SRV_Channel::k_aileron,channel_roll -> zero());
-    //SRV_Channels::set_output_scaled(SRV_Channel::k_rudder,channel_rudder -> zero());
+    
+    if (channel_pitch->get_control_in() != 0 || channel_roll->get_control_in() != 0) {
+        SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, plane.channel_roll->get_control_in_zero_dz());
+        SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, plane.channel_pitch->get_control_in_zero_dz());
+    } else {
+        if (plane.count<50) {
+            SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, (channel_pitch-> zero() + 
+                                                                      channel_pitch-> get_control_in_zero_dz()));
+            SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, (channel_roll-> get_control_in_zero_dz() + 
+                                                                     rollController.get_servo_out(nav_roll_cd - ahrs.roll_sensor, 
+                                                                                                   speed_scaler, 
+                                                                                                   disable_integrator));
+        } else if (plane.count<100) {
+            SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, (channel_pitch-> def() + 
+                                                                      channel_pitch-> get_control_in_zero_dz()));
+            SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, (channel_roll-> get_control_in_zero_dz() + 
+                                                                     rollController.get_servo_out(nav_roll_cd - ahrs.roll_sensor, 
+                                                                                                   speed_scaler, 
+                                                                                                   disable_integrator));
+        } else if (plane.count<150) {
+            SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, (channel_pitch-> abc() + 
+                                                                      channel_pitch-> get_control_in_zero_dz()));
+            SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, (channel_roll-> get_control_in_zero_dz() + 
+                                                                     rollController.get_servo_out(nav_roll_cd - ahrs.roll_sensor, 
+                                                                                                   speed_scaler, 
+                                                                                                   disable_integrator));
+        } else {
+            SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, (channel_pitch-> zero() + 
+                                                                      channel_pitch-> get_control_in_zero_dz()));
+            SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, (channel_roll-> get_control_in_zero_dz() + 
+                                                                     rollController.get_servo_out(nav_roll_cd - ahrs.roll_sensor, 
+                                                                                                   speed_scaler, 
+                                                                                                   disable_integrator));
+        }
     }
-	
-    else if (plane.count<150)
-    {
-	SRV_Channels::set_output_scaled(SRV_Channel::k_elevator,channel_pitch -> abc() + 225);
-    //SRV_Channels::set_output_scaled(SRV_Channel::k_aileron,channel_roll -> zero());
-    //SRV_Channels::set_output_scaled(SRV_Channel::k_rudder,channel_rudder -> zero());
-    }
-	
-    else
-    {
-	SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, 225);
-    //SRV_Channels::set_output_scaled(SRV_Channel::k_aileron,channel_roll -> zero());
-    //SRV_Channels::set_output_scaled(SRV_Channel::k_rudder,channel_rudder -> zero());
-    }
-
 }
 
 
@@ -548,34 +549,12 @@ void Plane::stabilize()
     }
     float speed_scaler = get_speed_scaler();
 	if (control_mode == &mode_lateral) {
-            //steer_state.locked_course = false;
-            //steer_state.locked_course_err = 0;
-            /*
-            SRV_Channels::set_output_scaled(SRV_Channel::k_aileron,plane.channel_roll->get_control_in_zero_dz());
-            SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, plane.channel_pitch->get_control_in_zero_dz());
-            SRV_Channels::set_output_scaled(SRV_Channel::k_rudder, plane.channel_rudder->get_control_in_zero_dz());
-            */
-        
             lateral_input(speed_scaler);
-        
-            //SRV_Channels::set_output_scaled(SRV_Channel::k_rudder, plane.channel_rudder->get_control_in_zero_dz());
-            //stabilize_pitch(speed_scaler);
-            //stabilize_stick_mixing_direct();
-            //stabilize_acro(speed_scaler);
-		    //stabilize_roll(speed_scaler);
-            //stabilize_yaw(speed_scaler);
-		    //stabilize_yaw1(speed_scaler);
-		    
-        //}
-        //return;
-    }
-	if (control_mode == &mode_longitudinal)
-	{
-		stabilize_roll(speed_scaler);
-	    longitudinal_input();
-         if (g.stick_mixing == STICK_MIXING_DIRECT || control_mode == &mode_longitudinal) {
-            stabilize_stick_mixing_direct();
-       
+            return;
+        }
+	if (control_mode == &mode_longitudinal) {
+	        longitudinal_input(speed_scaler);
+            return;
         }
 	}
     if (quadplane.in_tailsitter_vtol_transition()) {
