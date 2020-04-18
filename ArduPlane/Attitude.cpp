@@ -485,7 +485,7 @@ void Plane::lateral_input(float speed_scaler)//doublet input
 }
 
 
-void Plane::longitudinal_input(float speed scaler)//doublet input
+void Plane::longitudinal_input(float speed_scaler)//doublet input
 {
     bool disable_integrator = false;
     if (channel_pitch->get_control_in() != 0) {
