@@ -502,28 +502,28 @@ void Plane::longitudinal_input(float speed_scaler)//doublet input
             SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, (channel_roll-> get_control_in_zero_dz() + 
                                                                      rollController.get_servo_out(nav_roll_cd - ahrs.roll_sensor, 
                                                                                                    speed_scaler, 
-                                                                                                   disable_integrator));
+                                                                                                   disable_integrator)));
         } else if (plane.count<100) {
             SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, (channel_pitch-> def() + 
                                                                       channel_pitch-> get_control_in_zero_dz()));
             SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, (channel_roll-> get_control_in_zero_dz() + 
                                                                      rollController.get_servo_out(nav_roll_cd - ahrs.roll_sensor, 
                                                                                                    speed_scaler, 
-                                                                                                   disable_integrator));
+                                                                                                   disable_integrator)));
         } else if (plane.count<150) {
             SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, (channel_pitch-> abc() + 
                                                                       channel_pitch-> get_control_in_zero_dz()));
             SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, (channel_roll-> get_control_in_zero_dz() + 
                                                                      rollController.get_servo_out(nav_roll_cd - ahrs.roll_sensor, 
                                                                                                    speed_scaler, 
-                                                                                                   disable_integrator));
+                                                                                                   disable_integrator)));
         } else {
             SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, (channel_pitch-> zero() + 
                                                                       channel_pitch-> get_control_in_zero_dz()));
             SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, (channel_roll-> get_control_in_zero_dz() + 
                                                                      rollController.get_servo_out(nav_roll_cd - ahrs.roll_sensor, 
                                                                                                    speed_scaler, 
-                                                                                                   disable_integrator));
+                                                                                                   disable_integrator)));
         }
     }
 }
