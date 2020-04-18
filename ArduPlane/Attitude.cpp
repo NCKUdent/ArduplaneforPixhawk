@@ -556,7 +556,9 @@ void Plane::stabilize()
     last_stabilize_ms = now;
    
    if (control_mode == &mode_lateral) {
-            stabilize_stick_mixing_fbw();
+            SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, plane.channel_roll->get_control_in_zero_dz());
+            SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, plane.channel_pitch->get_control_in_zero_dz());
+            SRV_Channels::set_output_scaled(SRV_Channel::k_rudder, plane.channel_rudder->get_control_in_zero_dz());
     } else if (control_mode == &mode_longitudinal) {
             stabilize_stick_mixing_direct();
     } else if (control_mode == &mode_training) {
