@@ -992,7 +992,7 @@ private:
 	void custom_stabilize_pitch();
 	void track_roll_attitude();
     void lateral_input(float speed_scaler);
-    void longitudinal_input();
+    void longitudinal_input(float speed_scaler);
     void stabilize_pitch(float speed_scaler);
     void stabilize_pitch1(float speed_scaler);
     void stabilize_stick_mixing_direct();
