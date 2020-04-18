@@ -15,7 +15,9 @@ bool ModeLongitudinal::_enter()
 
 void ModeLongitudinal::update()
 {
+    if (plane.channel_pitch->get_control_in() != 0 || plane.channel_roll->get_control_in() != 0) {
+        plane.steering_control.steering = plane.steering_control.rudder = plane.channel_rudder->get_control_in_zero_dz();
+    }
 	plane.nav_roll_cd = 0;
-
 	plane.count=plane.count+1;
 }
