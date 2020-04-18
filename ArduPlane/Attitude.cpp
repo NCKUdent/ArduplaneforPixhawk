@@ -429,7 +429,7 @@ if (plane.count<50)
     SRV_Channels::set_output_scaled(SRV_Channel::k_rudder, (channel_rudder -> zero() + 
                                                             channel_rudder ->  get_control_in_zero_dz() +
                                                             pitchController.get_servo_out(demanded_pitch - ahrs.pitch_sensor, 
-                                                                                     speed_scaler, 
+                                                                                     plane.speed_scaler, 
                                                                                      disable_integrator));		
     }
     
