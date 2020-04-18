@@ -18,27 +18,19 @@ void ModeLateral::update()
     plane.nav_pitch_cd =0 ;
 	plane.count=plane.count+1;
  
-if (plane.count<50)
-{
-		
+if (plane.count<50) {
 	plane.steering_control.steering = plane.steering_control.rudder = plane.channel_rudder->get_control_in_zero_dz() + 0;
 }
-else if (plane.count<100)
-{
-	plane.steering_control.steering = plane.steering_control.rudder = plane.channel_rudder->get_control_in_zero_dz() + 1500;
-	
-			
+else if (plane.count<100) {
+	plane.steering_control.steering = plane.steering_control.rudder = plane.channel_rudder->get_control_in_zero_dz() + 1500;			
 }
-else if (plane.count<150)
-{
+else if (plane.count<150) {
 	plane.steering_control.steering = plane.steering_control.rudder = plane.channel_rudder->get_control_in_zero_dz() - 1500;
-	
 }
-
-else if (plane.count<200)
-{
+else if (plane.count<200) {
 	plane.steering_control.steering = plane.steering_control.rudder = plane.channel_rudder->get_control_in_zero_dz() + 0;
-	
 }
+else {
+    plane.steering_control.steering = plane.steering_control.rudder = plane.channel_rudder->get_control_in_zero_dz();
 
 }
