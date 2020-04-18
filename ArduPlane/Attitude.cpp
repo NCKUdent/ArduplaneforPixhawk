@@ -508,11 +508,11 @@ void Plane::stabilize()
             //steer_state.locked_course_err = 0;
             
             stabilize_pitch(speed_scaler);
-            lateral_input();
+            
             SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, plane.channel_roll->get_control_in_zero_dz());
             SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, plane.channel_pitch->get_control_in_zero_dz());
             SRV_Channels::set_output_scaled(SRV_Channel::k_rudder, plane.channel_rudder->get_control_in_zero_dz());
-            
+            lateral_input();
             //stabilize_stick_mixing_direct();
             //stabilize_acro(speed_scaler);
 		    //stabilize_roll(speed_scaler);
