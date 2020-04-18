@@ -552,11 +552,12 @@ void Plane::stabilize()
             lateral_input(speed_scaler);
             return;
         }
+    
 	if (control_mode == &mode_longitudinal) {
 	        longitudinal_input(speed_scaler);
             return;
         }
-	}
+
     if (quadplane.in_tailsitter_vtol_transition()) {
         /*
           during transition to vtol in a tailsitter try to raise the
