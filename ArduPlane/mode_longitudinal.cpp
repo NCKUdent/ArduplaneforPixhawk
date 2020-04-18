@@ -15,7 +15,8 @@ bool ModeLongitudinal::_enter()
 
 void ModeLongitudinal::update()
 {
-    if (plane.channel_pitch->get_control_in() != 0 || plane.channel_roll->get_control_in() != 0) {
+    if (plane.channel_pitch->percent_input() < 35 || plane.channel_pitch->percent_input() > 68 ||
+        plane.channel_roll->percent_input() < 35  || plane.channel_roll->percent_input() > 68) {
         plane.steering_control.steering = plane.steering_control.rudder = plane.channel_rudder->get_control_in_zero_dz();
     }
 	plane.nav_roll_cd = 0;
