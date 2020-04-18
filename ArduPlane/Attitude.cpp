@@ -420,7 +420,8 @@ void Plane::lateral_input(float speed_scaler)//doublet input
         disable_integrator = true;
     }
     
-    if (plane.channel_pitch->percent_input() > 30 || plane.channel_roll->percent_input() > 30) {
+    if (plane.channel_pitch->percent_input() < 35 || plane.channel_pitch->percent_input() > 68 ||
+    plane.channel_roll->percent_input() < 35  || plane.channel_roll->percent_input() > 68) {
         SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, plane.channel_roll->get_control_in_zero_dz());
         SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, plane.channel_pitch->get_control_in_zero_dz());
     } else {
@@ -488,11 +489,13 @@ void Plane::lateral_input(float speed_scaler)//doublet input
 void Plane::longitudinal_input(float speed_scaler)//doublet input
 {
     bool disable_integrator = false;
-    if (channel_pitch->get_control_in() != 0) {
+    if (plane.channel_pitch->percent_input() < 35 || plane.channel_pitch->percent_input() > 68 ||
+    plane.channel_roll->percent_input() < 35  || plane.channel_roll->percent_input() > 68) {
         disable_integrator = true;
     }
     
-    if (channel_pitch->get_control_in() != 0 || channel_roll->get_control_in() != 0) {
+    if (plane.channel_pitch->percent_input() < 35 || plane.channel_pitch->percent_input() > 68 ||
+    plane.channel_roll->percent_input() < 35  || plane.channel_roll->percent_input() > 68) {
         SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, plane.channel_roll->get_control_in_zero_dz());
         SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, plane.channel_pitch->get_control_in_zero_dz());
     } else {
@@ -581,15 +584,7 @@ void Plane::stabilize()
     }
     last_stabilize_ms = now;
    
-   if (control_mode == &mode_lateral) {
-       /*
-            SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, plane.channel_roll->get_control_in_zero_dz());
-            SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, plane.channel_pitch->get_control_in_zero_dz());
-            SRV_Channels::set_output_scaled(SRV_Channel::k_rudder, plane.channel_rudder->get_control_in_zero_dz());
-       */
-    } else if (control_mode == &mode_longitudinal) {
-            //stabilize_stick_mixing_direct();
-    } else if (control_mode == &mode_training) {
+   if (control_mode == &mode_training) {
         stabilize_training(speed_scaler);
     } else if (control_mode == &mode_acro) {
         stabilize_acro(speed_scaler);
