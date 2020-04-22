@@ -20,7 +20,7 @@ void ModeLateral::update()
  
 if (plane.channel_pitch->percent_input() < 35 || plane.channel_pitch->percent_input() > 68 ||
     plane.channel_roll->percent_input() < 35  || plane.channel_roll->percent_input() > 68) {
-        plane.count = 200;
+        plane.count = 1000;
     //plane.steering_control.steering = plane.steering_control.rudder = plane.channel_rudder->get_control_in_zero_dz();
 } else {
         if (plane.count<50) {
