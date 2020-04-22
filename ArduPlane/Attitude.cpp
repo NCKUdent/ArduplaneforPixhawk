@@ -422,7 +422,7 @@ void Plane::lateral_input(float speed_scaler)//doublet input
     
     if (plane.channel_pitch->percent_input() < 35 || plane.channel_pitch->percent_input() > 68 ||
     plane.channel_roll->percent_input() < 35  || plane.channel_roll->percent_input() > 68) {
-        plane.count = 300;
+        plane.count = 1000;
         /*SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, plane.channel_roll->get_control_in_zero_dz());
         SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, plane.channel_pitch->get_control_in_zero_dz());*/
     } else {
@@ -497,7 +497,7 @@ void Plane::longitudinal_input(float speed_scaler)//doublet input
     
     if (plane.channel_pitch->percent_input() < 35 || plane.channel_pitch->percent_input() > 68 ||
     plane.channel_roll->percent_input() < 35  || plane.channel_roll->percent_input() > 68) {
-        plane.count = 150;
+        plane.count = 1000;
         /*SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, plane.channel_roll->get_control_in_zero_dz());
         SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, plane.channel_pitch->get_control_in_zero_dz());*/
     } else {
