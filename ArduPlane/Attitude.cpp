@@ -459,7 +459,7 @@ void Plane::lateral_input(float speed_scaler)//doublet input
                                                                                                         disable_integrator)));*/
                 SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, (channel_pitch-> get_control_in_zero_dz()));
         } else if (plane.count<250) {
-                SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, (channel_roll-> abc() + 
+                SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, (500 + 
                                                                          channel_roll-> get_control_in_zero_dz()));
                 /*SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, (channel_pitch-> get_control_in_zero_dz() + 
                                                                           pitchController.get_servo_out(demanded_pitch - ahrs.pitch_sensor, 
@@ -467,7 +467,7 @@ void Plane::lateral_input(float speed_scaler)//doublet input
                                                                                                         disable_integrator)));*/
                 SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, (channel_pitch-> get_control_in_zero_dz()));
         } else if (plane.count<300) {
-                SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, (channel_roll-> def() + 
+                SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, (-500 + 
                                                                          channel_roll-> get_control_in_zero_dz()));
                 /*SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, (channel_pitch-> get_control_in_zero_dz() + 
                                                                           pitchController.get_servo_out(demanded_pitch - ahrs.pitch_sensor, 
