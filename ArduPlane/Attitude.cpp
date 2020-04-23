@@ -413,11 +413,12 @@ void Plane::lateral_input(float speed_scaler)//doublet input
         return;
     }
     
+    /*
     bool disable_integrator = false;
    
     if (channel_pitch->get_control_in() != 0) {
         disable_integrator = true;
-    }
+    }*/
     
     if (plane.channel_pitch->percent_input() < 35 || plane.channel_pitch->percent_input() > 68 ||
     plane.channel_roll->percent_input() < 35  || plane.channel_roll->percent_input() > 68) {
