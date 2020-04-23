@@ -413,7 +413,6 @@ void Plane::lateral_input(float speed_scaler)//doublet input
         return;
     }
     
-    int32_t demanded_pitch = nav_pitch_cd + g.pitch_trim_cd + SRV_Channels::get_output_scaled(SRV_Channel::k_throttle) * g.kff_throttle_to_pitch;
     bool disable_integrator = false;
    
     if (channel_pitch->get_control_in() != 0) {
