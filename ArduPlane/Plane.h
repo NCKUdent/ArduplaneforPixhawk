@@ -166,6 +166,7 @@ public:
 
     // HAL::Callbacks implementation.
     int count;
+    int timecount;
     int16_t id_input;
     void setup() override;
     void loop() override;
