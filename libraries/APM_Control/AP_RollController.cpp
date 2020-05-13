@@ -259,7 +259,8 @@ int32_t AP_RollController::_custom_get_rate_out(float desired_rate, bool disable
 		    custom_roll_I_integrator += rate_error * delta_time;
 			custom_roll_D_derivative = (rate_error - custom_rate_error_prior) / delta_time;
 			custom_rate_error_prior = rate_error;
-		} else {
+		} 
+    } else {
 		//roll_I_integrator = 0;
 		custom_roll_I_integrator = 0;
 		custom_roll_D_derivative = 0;
@@ -332,7 +333,8 @@ int32_t AP_RollController::_track_get_rate_out(float desired_rate, bool disable_
 		    track_roll_I_integrator += rate_error * delta_time;
 			track_roll_D_derivative = (rate_error - track_rate_error_prior) / delta_time;
 			track_rate_error_prior = rate_error;
-		} else {
+		} 
+    } else {
 		//roll_I_integrator = 0;
 		track_roll_I_integrator = 0;
 		track_roll_D_derivative = 0;
