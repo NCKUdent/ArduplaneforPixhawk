@@ -622,7 +622,7 @@ void Plane::stabilize()
         stabilize_yaw(speed_scaler);
     } else {
 		timecount = 0;
-        if (g.stick_mixing == STICK_MIXING_FBW && control_mode != &mode_stabilize) {
+        /*if (g.stick_mixing == STICK_MIXING_FBW && control_mode != &mode_stabilize) {
             stabilize_stick_mixing_fbw();
         }
         stabilize_roll(speed_scaler);
@@ -630,7 +630,9 @@ void Plane::stabilize()
         if (g.stick_mixing == STICK_MIXING_DIRECT || control_mode == &mode_stabilize) {
             stabilize_stick_mixing_direct();
         }
+        */
         stabilize_yaw(speed_scaler);
+       
     }
 
     /*
