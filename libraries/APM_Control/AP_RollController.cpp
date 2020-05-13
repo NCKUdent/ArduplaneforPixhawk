@@ -250,23 +250,27 @@ int32_t AP_RollController::_custom_get_rate_out(float desired_rate, bool disable
 		//only integrate if time step are positive
     if (!disable_integrator) {
 		if (dt > 0) {
+            float integrator_delta = rate_error * delta_time;
 			if (_custom_last_out_deg < -30) {
-                custom_roll_I_integrator = MAX(custom_roll_I_integrator , 0);
+                integrator_delta = MAX(integrator_delta , 0);
             } else if (_custom_last_out_deg > 30) {
                 // prevent the integrator from decreasing if surface defln demand  is below the lower limit
-                 custom_roll_I_integrator = MIN(custom_roll_I_integrator, 0);
+                 integrator_delta = MIN(integrator_delta, 0);
             }
-		    custom_roll_I_integrator += rate_error * delta_time;
-			custom_roll_D_derivative = (rate_error - custom_rate_error_prior) / delta_time;
-			custom_rate_error_prior = rate_error;
+		    custom_roll_I_integrator += integrator_delta;
+
 		} 
     } else {
 		//roll_I_integrator = 0;
 		custom_roll_I_integrator = 0;
-		custom_roll_D_derivative = 0;
-		custom_rate_error_prior = 0;
 	}
 	
+    
+    custom_roll_D_derivative = (rate_error - custom_rate_error_prior) / delta_time;
+	custom_rate_error_prior = rate_error;
+    //custom_roll_D_derivative = 0;
+	//custom_rate_error_prior = 0;
+    
 	// Calculate the demanded control surface deflection
 	// Note the scaler is applied again. We want a 1/speed scaler applied to the feed-forward
 	// path, but want a 1/speed^2 scaler applied to the rate error path. 
