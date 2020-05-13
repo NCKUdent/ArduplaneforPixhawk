@@ -120,7 +120,7 @@ void Plane::custom_stabilize_roll()
     SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, (channel_roll-> get_control_in_zero_dz() + 
                                                              rollController.custom_get_servo_out(custom_nav_roll_cd - ahrs.roll_sensor,  
                                                                                                 disable_integrator)));
-    SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, (channel_pitch-> get_control_in_zero_dz()));
+   // SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, (channel_pitch-> get_control_in_zero_dz()));
 
 }
 void Plane::custom_stabilize_pitch()
@@ -132,7 +132,7 @@ void Plane::custom_stabilize_pitch()
     SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, (channel_pitch-> get_control_in_zero_dz() + 
                                                               pitchController.custom_get_servo_out(custom_nav_pitch_cd - ahrs.pitch_sensor,  
                                                                                                   disable_integrator)));
-    SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, (channel_roll-> get_control_in_zero_dz()));
+    //SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, (channel_roll-> get_control_in_zero_dz()));
 }
 
 void Plane::track_roll_attitude()
@@ -151,7 +151,7 @@ void Plane::track_roll_attitude()
                                                                                                 disable_integrator)));
     }
     
-    SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, channel_pitch-> get_control_in_zero_dz());
+    //SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, channel_pitch-> get_control_in_zero_dz());
 
 }
 
