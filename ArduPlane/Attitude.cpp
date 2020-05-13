@@ -117,8 +117,11 @@ void Plane::custom_stabilize_roll()
     if (control_mode == &mode_custom_stabilize && channel_roll->get_control_in() != 0) {
         disable_integrator = true;
     }
-    SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, rollController.custom_get_servo_out(custom_nav_roll_cd - ahrs.roll_sensor,  
-                                                                                                disable_integrator));
+    SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, (channel_roll-> get_control_in_zero_dz() + 
+                                                             rollController.custom_get_servo_out(custom_nav_roll_cd - ahrs.roll_sensor,  
+                                                                                                disable_integrator)));
+    SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, (channel_pitch-> get_control_in_zero_dz()));
+
 }
 void Plane::custom_stabilize_pitch()
 {
@@ -128,6 +131,7 @@ void Plane::custom_stabilize_pitch()
     }
     SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, pitchController.custom_get_servo_out(custom_nav_pitch_cd - ahrs.pitch_sensor,  
                                                                                                   disable_integrator));
+    SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, (channel_roll-> get_control_in_zero_dz()));
 }
 
 void Plane::track_roll_attitude()
@@ -137,12 +141,17 @@ void Plane::track_roll_attitude()
         disable_integrator = true;
     }
 	if (timecount>=0 && timecount<100) {
-	SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, rollController.track_get_servo_out(0 - ahrs.roll_sensor,  
-                                                                                                disable_integrator));
+	SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, (channel_roll-> get_control_in_zero_dz() + 
+                                                             rollController.track_get_servo_out(0 - ahrs.roll_sensor,  
+                                                                                                disable_integrator)));
     } else {
-    SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, rollController.track_get_servo_out(1000 - ahrs.roll_sensor,  
-                                                                                                disable_integrator));
+    SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, (channel_roll-> get_control_in_zero_dz() + 
+                                                             rollController.track_get_servo_out(1000 - ahrs.roll_sensor,  
+                                                                                                disable_integrator)));
     }
+    
+    SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, channel_pitch-> get_control_in_zero_dz());
+
 }
 
 
@@ -600,25 +609,13 @@ void Plane::stabilize()
                !quadplane.in_tailsitter_vtol_transition()) {
         quadplane.control_run();
     } else if (control_mode == &mode_track_attitude) {
-		if (g.stick_mixing == STICK_MIXING_FBW && control_mode != &mode_track_attitude) {
-            stabilize_stick_mixing_fbw();
-        }
 		track_roll_attitude();
 		stabilize_pitch(speed_scaler);
-        if (g.stick_mixing == STICK_MIXING_DIRECT || control_mode == &mode_track_attitude) {
-            stabilize_stick_mixing_direct();
-        }
         stabilize_yaw(speed_scaler);
 	} else if (control_mode == &mode_custom_stabilize){
 		timecount = 0;
-        if (g.stick_mixing == STICK_MIXING_FBW && control_mode != &mode_custom_stabilize) {
-            stabilize_stick_mixing_fbw();
-        }
         custom_stabilize_roll();
 		stabilize_pitch(speed_scaler);
-        if (g.stick_mixing == STICK_MIXING_DIRECT || control_mode == &mode_custom_stabilize) {
-            stabilize_stick_mixing_direct();
-        }
         stabilize_yaw(speed_scaler);
     } else {
 		timecount = 0;
