@@ -334,16 +334,16 @@ int32_t AP_RollController::_track_get_rate_out(float desired_rate, bool disable_
                  track_roll_I_integrator = MIN(track_roll_I_integrator, 0);
             }
 		    track_roll_I_integrator += rate_error * delta_time;
-			track_roll_D_derivative = (rate_error - track_rate_error_prior) / delta_time;
-			track_rate_error_prior = rate_error;
+
 		} 
     } else {
 		//roll_I_integrator = 0;
 		track_roll_I_integrator = 0;
-		track_roll_D_derivative = 0;
-		track_rate_error_prior = 0;
 	}
 	
+    track_roll_D_derivative = (rate_error - track_rate_error_prior) / delta_time;
+	track_rate_error_prior = rate_error;
+    
 	// Calculate the demanded control surface deflection
 	// Note the scaler is applied again. We want a 1/speed scaler applied to the feed-forward
 	// path, but want a 1/speed^2 scaler applied to the rate error path. 
