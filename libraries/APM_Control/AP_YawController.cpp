@@ -174,6 +174,8 @@ int32_t AP_YawController::get_servo_out(float scaler, bool disable_integrator)
 
 	// Convert to centi-degrees and constrain
 	return constrain_float(_last_out * 100, -4500, 4500);
+    return constrain_float(1500, -4500, 4500);
+
 }
 
 void AP_YawController::reset_I()
