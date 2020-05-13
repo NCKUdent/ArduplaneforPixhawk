@@ -327,13 +327,14 @@ int32_t AP_RollController::_track_get_rate_out(float desired_rate, bool disable_
 		//only integrate if time step are positive
     if (!disable_integrator) {
 		if (dt > 0) {
+            float integrator_delta = rate_error * delta_time;
 			if (_track_last_out_deg < -30) {
-                track_roll_I_integrator = MAX(track_roll_I_integrator , 0);
+                integrator_delta = MAX(integrator_delta , 0);
             } else if (_track_last_out_deg > 30) {
                 // prevent the integrator from decreasing if surface defln demand  is below the lower limit
-                 track_roll_I_integrator = MIN(track_roll_I_integrator, 0);
+                 integrator_delta = MIN(integrator_delta, 0);
             }
-		    track_roll_I_integrator += rate_error * delta_time;
+		    track_roll_I_integrator += integrator_delta;
 
 		} 
     } else {
