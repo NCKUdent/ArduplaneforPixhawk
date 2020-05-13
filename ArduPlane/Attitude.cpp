@@ -610,7 +610,8 @@ void Plane::stabilize()
                !quadplane.in_tailsitter_vtol_transition()) {
         quadplane.control_run();
     } else if (control_mode == &mode_track_attitude) {
-		track_roll_attitude();
+		timecount += 1;
+        track_roll_attitude();
 		stabilize_pitch(speed_scaler);
         stabilize_yaw(speed_scaler);
 	} else if (control_mode == &mode_custom_stabilize){
