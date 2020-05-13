@@ -1,6 +1,6 @@
 #include "Plane.h"
 
-int timecount;
+//int timecount;
 float lastinput;
 
 /*
@@ -141,7 +141,7 @@ void Plane::track_roll_attitude()
     if (control_mode == &mode_track_attitude && channel_roll->get_control_in() != 0) {
         disable_integrator = true;
     }
-	if (timecount>=0 && timecount<100) {
+	if (plane.timecount<100) {
 	SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, (channel_roll-> get_control_in_zero_dz() + 
                                                              rollController.track_get_servo_out(0 - ahrs.roll_sensor,  
                                                                                                 disable_integrator)));
