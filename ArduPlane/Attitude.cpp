@@ -129,8 +129,9 @@ void Plane::custom_stabilize_pitch()
     if (control_mode == &mode_custom_stabilize && channel_pitch->get_control_in() != 0) {
         disable_integrator = true;
     }
-    SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, pitchController.custom_get_servo_out(custom_nav_pitch_cd - ahrs.pitch_sensor,  
-                                                                                                  disable_integrator));
+    SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, (channel_pitch-> get_control_in_zero_dz() + 
+                                                              pitchController.custom_get_servo_out(custom_nav_pitch_cd - ahrs.pitch_sensor,  
+                                                                                                  disable_integrator)));
     SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, (channel_roll-> get_control_in_zero_dz()));
 }
 
