@@ -265,7 +265,6 @@ int32_t AP_RollController::_custom_get_rate_out(float desired_rate, bool disable
 		custom_roll_I_integrator = 0;
 		custom_roll_D_derivative = 0;
 		custom_rate_error_prior = 0;
-	    }
 	}
 	
 	// Calculate the demanded control surface deflection
@@ -339,7 +338,6 @@ int32_t AP_RollController::_track_get_rate_out(float desired_rate, bool disable_
 		track_roll_I_integrator = 0;
 		track_roll_D_derivative = 0;
 		track_rate_error_prior = 0;
-	    }
 	}
 	
 	// Calculate the demanded control surface deflection
