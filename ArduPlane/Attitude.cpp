@@ -120,7 +120,7 @@ void Plane::custom_stabilize_roll()
     SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, (channel_roll-> get_control_in_zero_dz() + 
                                                              rollController.custom_get_servo_out(custom_nav_roll_cd - ahrs.roll_sensor,  
                                                                                                 disable_integrator)));
-   // SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, (channel_pitch-> get_control_in_zero_dz()));
+   SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, (channel_pitch-> get_control_in_zero_dz()));
 
 }
 void Plane::custom_stabilize_pitch()
@@ -132,7 +132,7 @@ void Plane::custom_stabilize_pitch()
     SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, (channel_pitch-> get_control_in_zero_dz() + 
                                                               pitchController.custom_get_servo_out(custom_nav_pitch_cd - ahrs.pitch_sensor,  
                                                                                                   disable_integrator)));
-    //SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, (channel_roll-> get_control_in_zero_dz()));
+    SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, (channel_roll-> get_control_in_zero_dz()));
 }
 
 void Plane::track_roll_attitude()
@@ -151,7 +151,7 @@ void Plane::track_roll_attitude()
                                                                                                 disable_integrator)));
     }
     
-    //SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, channel_pitch-> get_control_in_zero_dz());
+    SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, channel_pitch-> get_control_in_zero_dz());
 
 }
 
@@ -611,13 +611,15 @@ void Plane::stabilize()
         quadplane.control_run();
     } else if (control_mode == &mode_track_attitude) {
 		timecount += 1;
+       stabilize_pitch(speed_scaler);
         track_roll_attitude();
-		stabilize_pitch(speed_scaler);
+		
         stabilize_yaw(speed_scaler);
 	} else if (control_mode == &mode_custom_stabilize){
 		timecount = 0;
+       stabilize_pitch(speed_scaler);
         custom_stabilize_roll();
-		stabilize_pitch(speed_scaler);
+		
         stabilize_yaw(speed_scaler);
     } else {
 		timecount = 0;
