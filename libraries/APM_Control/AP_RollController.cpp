@@ -235,7 +235,7 @@ int32_t AP_RollController::_custom_get_rate_out(float desired_rate, bool disable
     float inner_P = 0.0943750742643598;
 	float inner_I = 53.2001830942051;
 	float inner_D = 0.;
-	float delta_time = (float)dt * 2.5f;
+	float delta_time = (float)dt * 0.001f;
     /*
 	float inner_P = 0.0757108607;
 	float inner_I = 0.9967443892;
@@ -315,7 +315,7 @@ int32_t AP_RollController::_track_get_rate_out(float desired_rate, bool disable_
     float inner_P = 0.0943750742643598;
 	float inner_I = 53.2001830942051;
 	float inner_D = 0.;
-	float delta_time = (float)dt * 2.5f;
+	float delta_time = (float)dt * 0.001f;
 	
     // Get body rate vector (radians/sec)
 	float omega_x = _ahrs.get_gyro().x;
