@@ -368,7 +368,7 @@ int32_t AP_RollController::track_get_servo_out(int32_t angle_err, bool disable_i
 {
 	// Calculate the desired roll rate (radians/sec) from the angle error
 	float outter_P = 1;
-	float angle_err_rad = ToRad((angle_err)/126.54);
+	float angle_err_rad = ToRad((angle_err)/100);
 	float desired_rate = angle_err_rad * outter_P;
 
     return _track_get_rate_out(desired_rate, disable_integrator);
