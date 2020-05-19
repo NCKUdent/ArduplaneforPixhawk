@@ -329,7 +329,7 @@ int32_t AP_RollController::custom_get_servo_out(int32_t angle_err, bool disable_
 	custom_last_desired_rate = (angle_err_rad * outter_P) + (custom_roll_outter_I_integrator * outter_I) + (custom_roll_outter_D_derivative * outter_D);
     custom_last_desired_rate_deg = ToDeg(custom_last_desired_rate);
 
-    return _custom_get_rate_out(_custom_last_desired_rate_deg, disable_integrator);
+    return _custom_get_rate_out(custom_last_desired_rate_deg, disable_integrator);
 }
 
 /*
