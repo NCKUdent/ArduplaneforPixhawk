@@ -82,7 +82,7 @@ private:
     float custom_last_desired_rate_deg;
     float custom_roll_outter_I_integrator;
     float custom_roll_outter_D_derivative;
-    float custom_angle_error_prior;
+    float custom_angle_err_prior;
     
   
 	uint32_t _track_last_t;
