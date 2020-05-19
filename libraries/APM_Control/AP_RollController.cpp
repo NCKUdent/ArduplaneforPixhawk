@@ -310,9 +310,9 @@ int32_t AP_RollController::custom_get_servo_out(int32_t angle_err, bool disable_
     if (!disable_integrator) {
 		if (dt > 0) {
             float integrator_delta = angle_err * delta_time;
-			if (_custom_last_desired_rate_deg < -30) {
+			if (custom_last_desired_rate_deg < -30) {
                 integrator_delta = MAX(integrator_delta , 0);
-            } else if (_custom_last_desired_rate_deg > 30) {
+            } else if (custom_last_desired_rate_deg > 30) {
                  integrator_delta = MIN(integrator_delta, 0);
             }
 		    custom_roll_outter_I_integrator += integrator_delta;
