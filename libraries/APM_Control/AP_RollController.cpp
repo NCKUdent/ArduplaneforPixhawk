@@ -292,12 +292,44 @@ int32_t AP_RollController::_custom_get_rate_out(float desired_rate, bool disable
 */
 int32_t AP_RollController::custom_get_servo_out(int32_t angle_err, bool disable_integrator)
 {
+    uint32_t tnow = AP_HAL::millis();
+	uint32_t dt = tnow - _custom_outter_last_t;
+	if (_custom_outter_last_t == 0 || dt > 1000) {
+		dt = 0;
+	}
+	_custom_outter_last_t = tnow;
+    
 	// Calculate the desired roll rate (radians/sec) from the angle error
 	float outter_P = 1;
-	float angle_err_rad = ToRad((angle_err)/100);
-	float desired_rate = angle_err_rad * outter_P;
+    float outter_I = ;
+    float outter_D = ;
+    float delta_time = (float)dt * 0.001f;
 
-    return _custom_get_rate_out(desired_rate, disable_integrator);
+	float angle_err_rad = ToRad((angle_err)/100);
+    
+    if (!disable_integrator) {
+		if (dt > 0) {
+            float integrator_delta = angle_error * delta_time;
+			if (_custom_last_desired_rate_deg < -30) {
+                integrator_delta = MAX(integrator_delta , 0);
+            } else if (_custom_last_desired_rate_deg > 30) {
+                 integrator_delta = MIN(integrator_delta, 0);
+            }
+		    custom_roll_outter_I_integrator += integrator_delta;
+
+		} 
+    } else {
+		//roll_I_integrator = 0;
+		custom_roll_outter_I_integrator = 0;
+	}
+    
+    custom_roll_outter_D_derivative = (angle_error - custom_angle_error_prior) / delta_time;
+	custom_angle_error_prior = angle_error;
+    
+	custom_last_desired_rate = ToDeg(_custom_last_out); = (angle_err_rad * outter_P) + (custom_roll_outter_I_derivative * outter_I) + (custom_roll_outter_D_derivative * outter_D);
+    custom_last_desired_rate_deg = ToDeg(desired_rate);
+
+    return _custom_get_rate_out(_custom_last_desired_rate_deg, disable_integrator);
 }
 
 /*
