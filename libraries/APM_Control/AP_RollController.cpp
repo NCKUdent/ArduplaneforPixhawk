@@ -290,7 +290,7 @@ int32_t AP_RollController::_custom_get_rate_out(float desired_rate, bool disable
 	return constrain_float(_custom_last_out_deg * 126.54, -4500,4500 );
     */
     
-    return constrain_float(desired_rate * 126.54, -4500,4500) 
+    return constrain_float(desired_rate * 126.54, -4500,4500);
 }
 
 /*
