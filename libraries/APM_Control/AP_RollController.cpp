@@ -444,7 +444,7 @@ int32_t AP_RollController::track_get_servo_out(int32_t angle_err, bool disable_i
     track_roll_outer_D_derivative = (angle_err_rad - track_angle_err_prior) / delta_time;
 	track_angle_err_prior = angle_err_rad;
     
-	track_last_desired_rate = (angle_err_rad * outer_P) + (track_roll_outter_I_integrator * outer_I) + (track_roll_outer_D_derivative * outer_D);
+	track_last_desired_rate = (angle_err_rad * outer_P) + (track_roll_outer_I_integrator * outer_I) + (track_roll_outer_D_derivative * outer_D);
     track_last_desired_rate_deg = ToDeg(track_last_desired_rate);
 
     return _track_get_rate_out(track_last_desired_rate_deg, disable_integrator);
