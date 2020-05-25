@@ -225,6 +225,7 @@ void AP_RollController::reset_I()
 */
 int32_t AP_RollController::_custom_get_rate_out(float desired_rate, bool disable_integrator)
 {
+    /*
 	uint32_t tnow = AP_HAL::millis();
 	uint32_t dt = tnow - _custom_last_t;
 	if (_custom_last_t == 0 || dt > 1000) {
@@ -285,6 +286,8 @@ int32_t AP_RollController::_custom_get_rate_out(float desired_rate, bool disable
 	
 	// Convert to centi-degrees and constrain, beware for physical system constraints
 	return constrain_float(_custom_last_out_deg * 126.54, -4500,4500 );
+    */
+        
 }
 
 /*
