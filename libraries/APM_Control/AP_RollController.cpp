@@ -298,11 +298,11 @@ int32_t AP_RollController::_custom_get_rate_out(float desired_rate, bool disable
 int32_t AP_RollController::custom_get_servo_out(int32_t angle_err, bool disable_integrator)
 {
     uint32_t tnow = AP_HAL::millis();
-	uint32_t dt = tnow - _custom_outter_last_t;
-	if (_custom_outter_last_t == 0 || dt > 1000) {
+	uint32_t dt = tnow - _custom_outer_last_t;
+	if (_custom_outer_last_t == 0 || dt > 1000) {
 		dt = 0;
 	}
-	_custom_outter_last_t = tnow;
+	_custom_outer_last_t = tnow;
     
 	// Calculate the desired roll rate (radians/sec) from the angle error
 	
@@ -405,16 +405,16 @@ int32_t AP_RollController::_track_get_rate_out(float desired_rate, bool disable_
 int32_t AP_RollController::track_get_servo_out(int32_t angle_err, bool disable_integrator)
 {
 	uint32_t tnow = AP_HAL::millis();
-	uint32_t dt = tnow - _track_outter_last_t;
-	if (_track_outter_last_t == 0 || dt > 1000) {
+	uint32_t dt = tnow - _track_outer_last_t;
+	if (_track_outer_last_t == 0 || dt > 1000) {
 		dt = 0;
 	}
-	_track_outter_last_t = tnow;
+	_track_outer_last_t = tnow;
     
 	// Calculate the desired roll rate (radians/sec) from the angle error
-	float outter_P = 5.08800087989596;
-    float outter_I = 2.2361660366663;
-    float outter_D = 1.35498570872358;
+	float outer_P = 5.08800087989596;
+    float outer_I = 2.2361660366663;
+    float outer_D = 1.35498570872358;
     float delta_time = (float)dt * 0.001f;
 
 	float angle_err_rad = ToRad((angle_err)/100);
@@ -427,18 +427,18 @@ int32_t AP_RollController::track_get_servo_out(int32_t angle_err, bool disable_i
             } else if (track_last_desired_rate_deg > 30) {
                  integrator_delta = MIN(integrator_delta, 0);
             }*/
-		    track_roll_outter_I_integrator += integrator_delta;
+		    track_roll_outer_I_integrator += integrator_delta;
 
 		} 
     } else {
 		//roll_I_integrator = 0;
-		track_roll_outter_I_integrator = 0;
+		track_roll_outer_I_integrator = 0;
 	}
     
-    track_roll_outter_D_derivative = (angle_err_rad - track_angle_err_prior) / delta_time;
+    track_roll_outer_D_derivative = (angle_err_rad - track_angle_err_prior) / delta_time;
 	track_angle_err_prior = angle_err_rad;
     
-	track_last_desired_rate = (angle_err_rad * outter_P) + (track_roll_outter_I_integrator * outter_I) + (track_roll_outter_D_derivative * outter_D);
+	track_last_desired_rate = (angle_err_rad * outer_P) + (track_roll_outter_I_integrator * outer_I) + (track_roll_outer_D_derivative * outer_D);
     track_last_desired_rate_deg = ToDeg(track_last_desired_rate);
 
     return _track_get_rate_out(track_last_desired_rate_deg, disable_integrator);
