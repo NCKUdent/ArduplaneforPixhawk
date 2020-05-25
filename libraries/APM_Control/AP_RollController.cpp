@@ -221,11 +221,11 @@ void AP_RollController::reset_I()
 
 
 /*
-  Customized for Geosat Roll Verification (Roll Rate Controller Outer Loop)
+  Customized for Geosat Roll Verification (Roll Angle Controller (Outer Loop))
 */
 int32_t AP_RollController::_custom_get_rate_out(float desired_rate, bool disable_integrator)
 {
-    /*
+    
 	uint32_t tnow = AP_HAL::millis();
 	uint32_t dt = tnow - _custom_last_t;
 	if (_custom_last_t == 0 || dt > 1000) {
@@ -243,6 +243,7 @@ int32_t AP_RollController::_custom_get_rate_out(float desired_rate, bool disable
 	float inner_D = 0.0014377142;
 	float delta_time = (float)dt * 0.001f;
 	*/
+    /*
     // Get body rate vector (radians/sec)
 	float omega_x = _ahrs.get_gyro().x;
 	
@@ -287,11 +288,12 @@ int32_t AP_RollController::_custom_get_rate_out(float desired_rate, bool disable
 	// Convert to centi-degrees and constrain, beware for physical system constraints
 	return constrain_float(_custom_last_out_deg * 126.54, -4500,4500 );
     */
-        
+    
+    //return constrain_float(_custom_last_out_deg * 126.54, -4500,4500) 
 }
 
 /*
-  Customized for Geosat Roll Verification (Roll Rate Controller Inner Loop)
+  Customized for Geosat Roll Verification (Roll Controller Outer)
 */
 int32_t AP_RollController::custom_get_servo_out(int32_t angle_err, bool disable_integrator)
 {
@@ -303,9 +305,10 @@ int32_t AP_RollController::custom_get_servo_out(int32_t angle_err, bool disable_
 	_custom_outter_last_t = tnow;
     
 	// Calculate the desired roll rate (radians/sec) from the angle error
-	float outter_P = 5.08800087989596;
-    float outter_I = 2.2361660366663;
-    float outter_D = 1.35498570872358;
+	
+    float outer_P = 5.08800087989596;
+    float outer_I = 2.2361660366663;
+    float outer_D = 1.35498570872358;
     float delta_time = (float)dt * 0.001f;
 
 	float angle_err_rad = ToRad((angle_err)/100);
@@ -313,23 +316,23 @@ int32_t AP_RollController::custom_get_servo_out(int32_t angle_err, bool disable_
     if (!disable_integrator) {
 		if (dt > 0) {
             float integrator_delta = angle_err_rad * delta_time;
-			/*if (custom_last_desired_rate_deg < -30) {
+			if (custom_last_desired_rate_deg < -30) {
                 integrator_delta = MAX(integrator_delta , 0);
             } else if (custom_last_desired_rate_deg > 30) {
                  integrator_delta = MIN(integrator_delta, 0);
-            }*/
-		    custom_roll_outter_I_integrator += integrator_delta;
+            }
+		    custom_roll_outer_I_integrator += integrator_delta;
 
 		} 
     } else {
 		//roll_I_integrator = 0;
-		custom_roll_outter_I_integrator = 0;
+		custom_roll_outer_I_integrator = 0;
 	}
     
-    custom_roll_outter_D_derivative = (angle_err_rad - custom_angle_err_prior) / delta_time;
+    custom_roll_outer_D_derivative = (angle_err_rad - custom_angle_err_prior) / delta_time;
 	custom_angle_err_prior = angle_err_rad;
     
-	custom_last_desired_rate = (angle_err_rad * outter_P) + (custom_roll_outter_I_integrator * outter_I) + (custom_roll_outter_D_derivative * outter_D);
+	custom_last_desired_rate = (angle_err_rad * outer_P) + (custom_roll_outer_I_integrator * outer_I) + (custom_roll_outer_D_derivative * outer_D);
     custom_last_desired_rate_deg = ToDeg(custom_last_desired_rate);
 
     return _custom_get_rate_out(custom_last_desired_rate_deg, disable_integrator);
@@ -347,7 +350,7 @@ int32_t AP_RollController::_track_get_rate_out(float desired_rate, bool disable_
 	}
 	_track_last_t = tnow;
 	
-        float inner_P = 6.19296486999963;
+    float inner_P = 6.19296486999963;
 	float inner_I = 50.8261171121983;
 	float inner_D = 0.188647176196767;
 	float delta_time = (float)dt * 0.001f;
