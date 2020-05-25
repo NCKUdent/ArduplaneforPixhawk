@@ -77,11 +77,11 @@ private:
 	float custom_roll_D_derivative;
 	float custom_rate_error_prior;
     
-    uint32_t  _custom_outter_last_t;
+    uint32_t  _custom_outer_last_t;
     float custom_last_desired_rate;
     float custom_last_desired_rate_deg;
-    float custom_roll_outter_I_integrator;
-    float custom_roll_outter_D_derivative;
+    float custom_roll_outer_I_integrator;
+    float custom_roll_outer_D_derivative;
     float custom_angle_err_prior;
     
   
@@ -93,11 +93,11 @@ private:
 	float track_roll_D_derivative;
 	float track_rate_error_prior;
     
-    uint32_t  _track_outter_last_t;
+    uint32_t  _track_outer_last_t;
     float track_last_desired_rate;
     float track_last_desired_rate_deg;
-    float track_roll_outter_I_integrator;
-    float track_roll_outter_D_derivative;
+    float track_roll_outer_I_integrator;
+    float track_roll_outer_D_derivative;
     float track_angle_err_prior;
 
     AP_Logger::PID_Info _pid_info;
