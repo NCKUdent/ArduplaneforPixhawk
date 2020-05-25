@@ -92,6 +92,13 @@ private:
 	float track_roll_I_integrator;
 	float track_roll_D_derivative;
 	float track_rate_error_prior;
+    
+    uint32_t  _track_outter_last_t;
+    float track_last_desired_rate;
+    float track_last_desired_rate_deg;
+    float track_roll_outter_I_integrator;
+    float track_roll_outter_D_derivative;
+    float track_angle_err_prior;
 
     AP_Logger::PID_Info _pid_info;
 
