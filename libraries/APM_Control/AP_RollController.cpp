@@ -232,9 +232,9 @@ int32_t AP_RollController::_custom_get_rate_out(float desired_rate, bool disable
 	}
 	_custom_last_t = tnow;
 	
-    float inner_P = 0.0943750742643598;
-	float inner_I = 53.2001830942051;
-	float inner_D = 0.;
+    float inner_P = 6.19296486999963;
+	float inner_I = 50.8261171121983;
+	float inner_D = 0.188647176196767;
 	float delta_time = (float)dt * 0.001f;
     /*
 	float inner_P = 0.0757108607;
@@ -300,9 +300,9 @@ int32_t AP_RollController::custom_get_servo_out(int32_t angle_err, bool disable_
 	_custom_outter_last_t = tnow;
     
 	// Calculate the desired roll rate (radians/sec) from the angle error
-	float outter_P = 1;
-    float outter_I = 1;
-    float outter_D = 1;
+	float outter_P = 5.08800087989596;
+    float outter_I = 2.2361660366663;
+    float outter_D = 1.35498570872358;
     float delta_time = (float)dt * 0.001f;
 
 	float angle_err_rad = ToRad((angle_err)/100);
@@ -344,9 +344,9 @@ int32_t AP_RollController::_track_get_rate_out(float desired_rate, bool disable_
 	}
 	_track_last_t = tnow;
 	
-    float inner_P = 0.0943750742643598;
-	float inner_I = 53.2001830942051;
-	float inner_D = 0.;
+        float inner_P = 6.19296486999963;
+	float inner_I = 50.8261171121983;
+	float inner_D = 0.188647176196767;
 	float delta_time = (float)dt * 0.001f;
 	
     // Get body rate vector (radians/sec)
@@ -398,10 +398,53 @@ int32_t AP_RollController::_track_get_rate_out(float desired_rate, bool disable_
 */
 int32_t AP_RollController::track_get_servo_out(int32_t angle_err, bool disable_integrator)
 {
+	uint32_t tnow = AP_HAL::millis();
+	uint32_t dt = tnow - _track_outter_last_t;
+	if (_track_outter_last_t == 0 || dt > 1000) {
+		dt = 0;
+	}
+	_track_outter_last_t = tnow;
+    
 	// Calculate the desired roll rate (radians/sec) from the angle error
+	float outter_P = 5.08800087989596;
+    float outter_I = 2.2361660366663;
+    float outter_D = 1.35498570872358;
+    float delta_time = (float)dt * 0.001f;
+
+	float angle_err_rad = ToRad((angle_err)/100);
+    
+    if (!disable_integrator) {
+		if (dt > 0) {
+            float integrator_delta = angle_err * delta_time;
+			if (track_last_desired_rate_deg < -30) {
+                integrator_delta = MAX(integrator_delta , 0);
+            } else if (track_last_desired_rate_deg > 30) {
+                 integrator_delta = MIN(integrator_delta, 0);
+            }
+		    track_roll_outter_I_integrator += integrator_delta;
+
+		} 
+    } else {
+		//roll_I_integrator = 0;
+		track_roll_outter_I_integrator = 0;
+	}
+    
+    track_roll_outter_D_derivative = (angle_err - track_angle_err_prior) / delta_time;
+	track_angle_err_prior = angle_err;
+    
+	track_last_desired_rate = (angle_err_rad * outter_P) + (track_roll_outter_I_integrator * outter_I) + (track_roll_outter_D_derivative * outter_D);
+    track_last_desired_rate_deg = ToDeg(track_last_desired_rate);
+
+    return _track_get_rate_out(track_last_desired_rate_deg, disable_integrator);
+    
+    
+    
+    /*
+    // Calculate the desired roll rate (radians/sec) from the angle error
 	float outter_P = 1;
 	float angle_err_rad = ToRad((angle_err)/100);
 	float desired_rate = angle_err_rad * outter_P;
 
     return _track_get_rate_out(desired_rate, disable_integrator);
+    */
 }
