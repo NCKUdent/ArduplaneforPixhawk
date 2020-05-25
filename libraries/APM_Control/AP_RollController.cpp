@@ -309,12 +309,12 @@ int32_t AP_RollController::custom_get_servo_out(int32_t angle_err, bool disable_
     
     if (!disable_integrator) {
 		if (dt > 0) {
-            float integrator_delta = angle_err * delta_time;
-			if (custom_last_desired_rate_deg < -30) {
+            float integrator_delta = angle_err_rad * delta_time;
+			/*if (custom_last_desired_rate_deg < -30) {
                 integrator_delta = MAX(integrator_delta , 0);
             } else if (custom_last_desired_rate_deg > 30) {
                  integrator_delta = MIN(integrator_delta, 0);
-            }
+            }*/
 		    custom_roll_outter_I_integrator += integrator_delta;
 
 		} 
@@ -323,8 +323,8 @@ int32_t AP_RollController::custom_get_servo_out(int32_t angle_err, bool disable_
 		custom_roll_outter_I_integrator = 0;
 	}
     
-    custom_roll_outter_D_derivative = (angle_err - custom_angle_err_prior) / delta_time;
-	custom_angle_err_prior = angle_err;
+    custom_roll_outter_D_derivative = (angle_err_rad - custom_angle_err_prior) / delta_time;
+	custom_angle_err_prior = angle_err_rad;
     
 	custom_last_desired_rate = (angle_err_rad * outter_P) + (custom_roll_outter_I_integrator * outter_I) + (custom_roll_outter_D_derivative * outter_D);
     custom_last_desired_rate_deg = ToDeg(custom_last_desired_rate);
@@ -415,12 +415,12 @@ int32_t AP_RollController::track_get_servo_out(int32_t angle_err, bool disable_i
     
     if (!disable_integrator) {
 		if (dt > 0) {
-            float integrator_delta = angle_err * delta_time;
-			if (track_last_desired_rate_deg < -30) {
+            float integrator_delta = angle_err_rad * delta_time;
+			/*if (track_last_desired_rate_deg < -30) {
                 integrator_delta = MAX(integrator_delta , 0);
             } else if (track_last_desired_rate_deg > 30) {
                  integrator_delta = MIN(integrator_delta, 0);
-            }
+            }*/
 		    track_roll_outter_I_integrator += integrator_delta;
 
 		} 
@@ -429,8 +429,8 @@ int32_t AP_RollController::track_get_servo_out(int32_t angle_err, bool disable_i
 		track_roll_outter_I_integrator = 0;
 	}
     
-    track_roll_outter_D_derivative = (angle_err - track_angle_err_prior) / delta_time;
-	track_angle_err_prior = angle_err;
+    track_roll_outter_D_derivative = (angle_err_rad - track_angle_err_prior) / delta_time;
+	track_angle_err_prior = angle_err_rad;
     
 	track_last_desired_rate = (angle_err_rad * outter_P) + (track_roll_outter_I_integrator * outter_I) + (track_roll_outter_D_derivative * outter_D);
     track_last_desired_rate_deg = ToDeg(track_last_desired_rate);
