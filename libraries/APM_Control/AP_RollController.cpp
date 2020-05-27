@@ -313,7 +313,7 @@ int32_t AP_RollController::custom_get_servo_out(int32_t angle_err, bool disable_
     float outer_D = 0;
     float delta_time = (float)dt * 0.001f;
 
-	float angle_err_rad = ToRad((angle_err)/100);
+	float angle_err_rad = ToRad((angle_err) * 0.01f);
     
     if (!disable_integrator) {
 		if (dt > 0) {
