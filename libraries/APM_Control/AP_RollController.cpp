@@ -308,8 +308,8 @@ int32_t AP_RollController::custom_get_servo_out(int32_t angle_err, bool disable_
     
 	// Calculate the desired roll rate (radians/sec) from the angle error
 	
-    float outer_P = 0.82823;
-    float outer_I = 0.15767;
+    float outer_P = 0.8282;
+    float outer_I = 0.835;
     float outer_D = 0;
     float delta_time = (float)dt * 0.001f;
 
@@ -419,8 +419,8 @@ int32_t AP_RollController::track_get_servo_out(int32_t angle_err, bool disable_i
 	_track_outer_last_t = tnow;
     
 	// Calculate the desired roll rate (radians/sec) from the angle error
-	float outer_P = 0.82823;
-    float outer_I = 0.15767;
+	float outer_P = 0.8282;
+    float outer_I = 0.835;
     float outer_D = 0;
     float delta_time = (float)dt * 0.001f;
 
