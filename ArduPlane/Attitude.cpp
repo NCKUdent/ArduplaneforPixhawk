@@ -101,7 +101,7 @@ void Plane::stabilize_roll(float speed_scaler)
     if (control_mode == &mode_stabilize && channel_roll->get_control_in() != 0) {
         disable_integrator = true;
     }
-    SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, rollController.get_servo_out(nav_roll_cd - ahrs.roll_sensor, 
+    SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, rollController.get_servo_out(2000 - ahrs.roll_sensor, 
                                                                                          speed_scaler, 
                                                                                          disable_integrator));
 }
